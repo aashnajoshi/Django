@@ -7,4 +7,5 @@ app_name = "main"
 urlpatterns = [
     path('', views.greet),
     path('greet/', views.greet),
+    path('data/', views.user_data)
 ]
