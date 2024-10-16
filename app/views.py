@@ -3,8 +3,10 @@ from django.http import HttpResponse
 
 # Create your views here. (request-handler: request -> reponse)
 
+def health_check(request):
+    return HttpResponse("Congrats! Django is working")
+
 def greet(request):
-    # return HttpResponse("Hey!")
     return render(request, 'welcome.html', {'name': 'Qwerty'})
 
 def user_data(request):

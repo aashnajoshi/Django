@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import debug_toolbar
+from app.views import health_check
 
 urlpatterns = [
-    path('', include('app.urls')),
+    path('', health_check),
+    path('app/', include('app.urls')),
     path('admin/', admin.site.urls),
     path('debug/', include(debug_toolbar.urls)),
 ]
