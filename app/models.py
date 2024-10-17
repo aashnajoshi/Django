@@ -15,4 +15,4 @@ class form(models.Model):
     date_added = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
-        return self.name
+        return self.name, self.email, self.dob, self.choice, self.message, self.date_added
