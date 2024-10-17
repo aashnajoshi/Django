@@ -11,13 +11,13 @@
         </tr>
         {% for user in info.users %}
         <tr>
-            <td>{{ user.name }}</td>
-            <td>{{ user.age }}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.age}}</td>
         </tr>
         {% endfor %}
     </table>
     {% elif name %}
-    <h1>Hey {{ name }}!</h1>
+    <h1>Hey {{name}}!</h1>
     {% else %}
     <h1>Welcome!</h1>
     {% endif %}

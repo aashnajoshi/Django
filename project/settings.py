@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
-    'app'
+    "app",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -54,11 +54,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'project.urls'
 
-INTERNAL_IPS = [
-    # ...
-    "127.0.0.1",
-    # ...
-]
+INTERNAL_IPS = ["127.0.0.1",]
 
 TEMPLATES = [
     {
