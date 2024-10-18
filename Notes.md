@@ -48,6 +48,16 @@ from .model import model_name
 admin.site.register(model_name)
 ```
 
+- To delete entries from database:
+```bash
+python manage.py makemigrations -n drop_all_tables app
+```
+
+- Apply the delete action:
+```bash
+python manage.py migrate app
+```
+
 # To create users we first need to create a super-user that can be done using:
 ```bash
 python manage.py createsuperuser
@@ -75,12 +85,17 @@ python manage.py tailwind install
 
 - From now on we will use two terminals one for *python manage.py runserver* and another for *python manage.py tailwind start*
 
-# To take images in db:
-- We use *models.ImageField(upload_to = 'location/for/saved/image')* in models.py
-- We then need to install Pillow library for image processing
+# To take images/files in db:
+- We use *models.ImageField(upload_to = 'location/wrt/BASE_DIR', null=True, default=None)* similarly models.FileField() in models.py
+
+- We then need to install Pillow library for image processing: *pipenv install Pillow*
+
 - Then in settings.py:
-    - MEDIA_URL = '/media/'
     - MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-- Then in project's urls.py:
+    - MEDIA_URL = '/media/'
+
+- Then in app's urls.py:
     - from django.conf import settings
       from django.conf.urls.static import static
+    - if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
