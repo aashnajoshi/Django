@@ -6,11 +6,13 @@
     {% if info %}
     <table class="table table-hover">
         <tr>
+            <th>S.No</th>
             <th>Name</th>
             <th>Age</th>
         </tr>
         {% for user in info.users %}
         <tr>
+            <td>{{forloop.counter}}</td>
             <td>{{user.name}}</td>
             <td>{{user.age}}</td>
         </tr>
