@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Django Project</title>
+</head>
+<body>
+    <div class="container mt-5">
+        {% if info %}
+        <table class="table table-hover">
+            <tr>
+                <th>S.No</th>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+            {% for user in info.users %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.age }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% elif data %}
+        <h2 class="mb-4">Submitted Forms</h2>
+        <div class="row">
+            {% for d in data %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ d.name }}</h5>
+                        <p class="card-text"><strong>Email:</strong> {{ d.email }}</p>
+                        <p class="card-text"><strong>Date of Birth:</strong> {{ d.dob }}</p>
+                        <p class="card-text"><strong>Choice:</strong> {{ d.choice }}</p>
+                        <p class="card-text"><strong>Message:</strong> {{ d.message }}</p>
+                        <p class="card-text"><strong>Date Added:</strong> {{ d.date_added }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% elif name %}
+        <h1>Hey {{ name }}!</h1>
+        {% elif form %}
+        <div class="card p-3 shadow-lg">
+            <h2 class="mb-4">Form</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        {% else %}
+        <h2>No data yet!</h2>
+        <p>Want to add data?</p>
+        <a href="{% url 'form' %}" class="btn btn-primary">Go to Form</a>
+        {% endif %}
+    </div>
+</body>
+</html>
