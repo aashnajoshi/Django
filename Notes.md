@@ -74,13 +74,72 @@ from app.models import *
 data = name(field = "entry", field2 = entry2....)
 data.save()
 ```
+            OR
+```bash
+from app.models import *
+data_dict = {"field1": "entry", "field2": "entry2"} #For dictionary or JSON format data
+name.objects.create(**data_dict)
+```
 
 - Here, we imported all models in *models.py* from our *app*, where *name* determines the class_name of the schema we defined inside *models.py* file.
+
+# To read data from schema:
+```bash
+from app.models import *
+data = name.objects.all()
+data # The format of data printed depends on the structure returned by __str__ in models.py
+
+for d in data:
+print(f"The data stored is {d.field1}: {d.field2}") # Or in any format you want
+
+info = name.objects.get(id = 2) 
+print(info) # Print the data saved in id 2, if id doen't exist it would throw an error
+```
+- The *id* field is automatically created by django for referencing data. To bypass the error, we can use: *name.objects.filter(id = )*, if id doesn't exist it would return an empty string else return the object of given id.
+
+# To update the data in schema:
+```bash
+from app.models import *
+data = name.objects.get(id = 2) # Target the data saved in id 2
+data.field1 = "new_entry"
+data.save()
+```
+            OR
+```bash
+from app.models import *
+name.objects.filter(id = 2).update(field1 = "new_entry") 
+```
+
+# To delete the data from schema:
+```bash
+from app.models import *
+name.objects.get(id = 2).delete()  # To delete a specific entry
+name.objects.all().delete()  # To delete whole data
+```
 
 # To access Django's Admin Pannel, we first need to create a super-user using:
 ```bash
 python manage.py createsuperuser
 ```
+
+- Once username and password are created (email optional) we can go to *http://localhost:8000/admin* and login via same credentials!
+
+# To add images/files in db:
+- For images, we use: *models.ImageField(upload_to = 'location/wrt/BASE_DIR', null=True, default=None)*. Similarly for files, we use: *models.FileField()* in models.py
+
+- We then need to install Pillow library for image processing: *pipenv install Pillow*
+
+- Then in settings.py:
+    - MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    - MEDIA_URL = '/media/'
+
+- Then in app's urls.py:
+    - from django.conf import settings
+      from django.conf.urls.static import static
+
+      (After URL_PATTERNS, add the following line)
+    - if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # To configure tailwind (if needed):
 ```bash
@@ -103,20 +162,3 @@ python manage.py tailwind install
 ```
 
 - From now on, we will use two terminals: one for *python manage.py runserver* and another for *python manage.py tailwind start*
-
-# To add images/files in db:
-- For images, we use: *models.ImageField(upload_to = 'location/wrt/BASE_DIR', null=True, default=None)*. Similarly for files, we use: *models.FileField()* in models.py
-
-- We then need to install Pillow library for image processing: *pipenv install Pillow*
-
-- Then in settings.py:
-    - MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-    - MEDIA_URL = '/media/'
-
-- Then in app's urls.py:
-    - from django.conf import settings
-      from django.conf.urls.static import static
-
-      (After URL_PATTERNS, add the following line)
-    - if settings.DEBUG:
-        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
