@@ -2,14 +2,14 @@ from django.db import models
 from django.utils import timezone
 
 # Create your models here. (Database structures)
-class FormEntry(models.Model):
-    OPTIONS = [('A', 'abc'), ('B', 'bcd'), ('C', 'cde')]
+class Form(models.Model):
+    OPTIONS = [(1, 'Abc'), (2, 'Bcd'), (3, 'Cde')]
     name = models.CharField(max_length=100)
     email = models.EmailField()
     dob = models.DateField()
     img = models.ImageField(upload_to='img/', null=True, default=None)
     doc = models.FileField(upload_to='doc/', null=True, default=None)
-    choice = models.CharField(max_length=1, choices=OPTIONS, default='A')
+    choice = models.CharField(max_length = 20 , choices=OPTIONS, default=1)
     message = models.TextField()
     date_added = models.DateTimeField(default=timezone.now)
 

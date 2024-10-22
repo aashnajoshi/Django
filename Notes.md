@@ -116,6 +116,7 @@ from app.models import *
 name.objects.get(id = 2).delete()  # To delete a specific entry
 name.objects.all().delete()  # To delete whole data
 ```
+then *python manage.py flush*
 
 # To access Django's Admin Pannel, we first need to create a super-user using:
 ```bash
