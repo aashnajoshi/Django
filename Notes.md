@@ -8,6 +8,13 @@ pipenv install {package_name}
 pipenv shell
 ```
 
+# Packages installed and their usage:
+- `pipenv`: A tool for managing virtual environments.
+- `django`: A high-level Python web framework for rapid development.
+- `django-debug-toolbar`: A debugging tool for Django applications.
+- `pillow`: An image processing library for Python.
+- `faker`: A tool for generating fake data for testing purposes.
+
 # To start a new django project in cwd (.)
 ```bash
 django-admin startproject project_name .
