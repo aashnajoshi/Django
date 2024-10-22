@@ -33,8 +33,8 @@
                         <h5 class="card-title">{{ d.name }}</h5>
                         <p class="card-text"><strong>Email:</strong> {{ d.email }}</p>
                         <p class="card-text"><strong>Date of Birth:</strong> {{ d.dob }}</p>
-                        <p class="card-text"><strong>Image:</strong><img src="/media/img/{{ d.image_url }}" alt="Uploaded Image" style="height: 200px; width: auto;"></p>
-                        <p class="card-text"><strong>Doc:</strong><a href="/media/doc/{{ d.doc_url }}" target="_blank">View Document</a></p>
+                        <p class="card-text"><strong>Image:</strong><img src="{{ d.img.url }}" alt="Uploaded Image" style="height: 200px; width: auto;"></p>
+                        <p class="card-text"><strong>Doc:</strong><a href="{{ d.doc.url }}" target="_blank">View Document</a></p>
                         <p class="card-text"><strong>Choice:</strong> {{ d.choice }}</p>
                         <p class="card-text"><strong>Message:</strong> {{ d.message }}</p>
                         <p class="card-text"><strong>Date Added:</strong> {{ d.date_added }}</p>

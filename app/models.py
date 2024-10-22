@@ -9,7 +9,7 @@ class Form(models.Model):
     dob = models.DateField()
     img = models.ImageField(upload_to='img/', null=True, default=None)
     doc = models.FileField(upload_to='doc/', null=True, default=None)
-    choice = models.CharField(max_length = 20 , choices=OPTIONS, default=1)
+    choice = models.IntegerField(choices=OPTIONS, default=1)
     message = models.TextField()
     date_added = models.DateTimeField(default=timezone.now)
 
