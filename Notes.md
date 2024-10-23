@@ -88,7 +88,7 @@ data_dict = {"field1": "entry", "field2": "entry2"} #For dictionary or JSON form
 name.objects.create(**data_dict)
 ```
 
-- Here, we imported all models in *models.py* from our *app*, where *name* determines the class_name of the schema we defined inside *models.py* file.
+- Here, we imported all models in *app_name/models.py*, where *name* determines the class_name of the schema we defined inside *models.py* file.
 
 # To READ data from schema:
 ```bash
@@ -135,9 +135,9 @@ python manage.py createsuperuser
 # To add images/files in db:
 - We then need to install Pillow library for image processing: *pipenv install Pillow*
 
-- For images, we use: *models.ImageField(upload_to = 'location/wrt/BASE_DIR', null=True, default=None)*. Similarly for files, we use: *models.FileField()* in *models.py* file.
+- For images, we use: *models.ImageField(upload_to = 'location/wrt/BASE_DIR', null=True, default=None)*. Similarly for files, we use: *models.FileField()* in *app_name/models.py* file.
 
-- Then in settings.py:
+- Then in *project_name/settings.py*:
 ```bash
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -156,54 +156,49 @@ if settings.DEBUG:
 ```
 
 # To send mail using django:
-- First install *pipenv install django-allauth*
-
-- Then in *settings.py*, add the following lines:
+- Then in *project_name/settings.py*, add the following lines:
 ```bash
-INSTALLED_APPS += ['allauth', 'allauth.account', 'allauth.socialaccount']
-EMAIL_BACKENDS = 'django.core.mail.backends.smpt.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smpt.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = ""
-EMAIL_HOST_PASSWORD = ""
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+EMAIL_HOST_USER = 'your_email_address'
+EMAIL_HOST_PASSWORD = 'your_email_password'
+EMAIL_USE_TLS = True
 ```
-
-- Then in *utils.py*, add the following code:
+- Then in *app_name/views.py*, add the following lines:
 ```bash
-from django.core.mail import send_mail, EmailMessage
+from django.contrib import messages
+from django.core.mail import EmailMessage
 from django.conf import settings
 
-subject = ""
-message = ""
-from_email = settings.EMAIL_HOST_USER
-recipient_list = [""]
-
-def mail_sender(subject, message, from_email, recipient_list):
-    send_mail(subject, message, from_email, recipient_list)
-
-def mail_with_attach(subject, message, recipient_list, file_path):
-    email = EmailMessage(subject=subject, body=message, from_email=settings.EMAIL_HOST_USER, to=recipient_list)
-    email.attach_file(file_path) 
-
-```
-
-- Then in *views.py*, add the following lines:
-```bash
-from .utils import mail_sender
-
 def send_email(request):
-    mail_sender()
-    return redirect('/')
+    if request.method == 'POST':
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+        recipient_list = [email.strip() for email in request.POST.get('recipients').split(',')]
+        file_path = request.FILES.get('file_path')  # Optional
+
+        email = EmailMessage(subject, message, settings.EMAIL_HOST_USER, recipient_list)
+        
+        if file_path:
+            email.attach(file_path.name, file_path.read(), file_path.content_type)
+
+        if email.send():
+            messages.success(request, 'Mail sent successfully!')
+        else:
+            messages.error(request, 'Failed to send mail. Please try again.')
+
+        return redirect('send_email')
+    else:
+        return render(request, 'index.html', context={'mail': 'mail'})
 ```
 
-- Then in *urls.py* in *app_name* directory, add the following lines:
+- Then in *app_name/urls.py*, add the following lines:
 ```bash
-from django.urls import path
-from .views import send_email
-
-
+urlpatterns = [
+    path('send_email/', views.send_email, name='send_email'),
+]
+```
 
 # To configure tailwind (if needed):
 ```bash

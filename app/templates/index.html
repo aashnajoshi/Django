@@ -34,7 +34,7 @@
                         <h5 class="card-title">{{ d.name }}</h5>
                         <p class="card-text"><strong>Email:</strong> {{ d.email }}</p>
                         <p class="card-text"><strong>Date of Birth:</strong> {{ d.dob }}</p>
-                        <p class="card-text"><strong>Image:</strong><img src="{{ d.img.url }}" alt="Uploaded Image" style="height: 200px; width: auto;"></p>
+                        <p class="card-text"><strong>Image:</strong><img src="{{ d.img.url }}" alt="Uploaded Image" class="img-fluid" style="max-height: 200px; object-fit: contain;"></p>
                         <p class="card-text"><strong>Doc:</strong><a href="{{ d.doc.url }}" target="_blank">View Document</a></p>
                         <p class="card-text"><strong>Choice:</strong> {{ d.choice }}</p>
                         <p class="card-text"><strong>Message:</strong> {{ d.message }}</p>
@@ -46,6 +46,19 @@
         </div>
         {% elif name %}
         <h1>Hey {{ name }}!</h1>
+        {% elif mail%}
+        <form method="post" enctype="multipart/form-data" class="form-group rounded p-3 shadow-lg">
+            {% csrf_token %}
+            <label for="recipients">Recipients (comma-separated):</label>
+            <input class="form-control" type="text" id="recipients" name="recipients" required><br>
+            <label for="subject">Subject:</label>
+            <input class="form-control" type="text" id="subject" name="subject" required><br>
+            <label for="message">Message:</label>
+            <textarea class="form-control" id="message" name="message" required></textarea><br>
+            <label for="file_path">Attachment (If Any):</label>
+            <input class="form-control" type="file" id="file_path" name="file_path"><br>
+            <button type="submit" class="btn btn-primary">Send Email</button>
+        </form>
         {% elif form %}
         <div class="container rounded mt-5 p-3 shadow-lg">
             <h2 class="mb-4">Add Details</h2>
