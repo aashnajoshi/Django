@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 #URL Configurations:
 urlpatterns = [
     path('', views.health_check),
+    path('view/', views.stream_view),
 ]
 
 if settings.DEBUG:
