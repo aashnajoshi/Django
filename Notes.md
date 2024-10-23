@@ -65,7 +65,7 @@ python manage.py makemigrations -n drop_all_tables app
 python manage.py migrate app
 ```
 
-# To add data into the schema we just defined and saved:
+# To ADD data in schema:
 ```bash
 python manage.py shell
 ```
@@ -90,7 +90,7 @@ name.objects.create(**data_dict)
 
 - Here, we imported all models in *models.py* from our *app*, where *name* determines the class_name of the schema we defined inside *models.py* file.
 
-# To read data from schema:
+# To READ data from schema:
 ```bash
 from app.models import *
 data = name.objects.all()
@@ -104,7 +104,7 @@ print(info) # Print the data saved in id 2, if id doen't exist it would throw an
 ```
 - The *id* field is automatically created by django for referencing data. To bypass the error, we can use: *name.objects.filter(id = )*, if id doesn't exist it would return an empty string else return the object of given id.
 
-# To update the data in schema:
+# To UPDATE the data in schema:
 ```bash
 from app.models import *
 data = name.objects.get(id = 2) # Target the data saved in id 2
@@ -117,7 +117,7 @@ from app.models import *
 name.objects.filter(id = 2).update(field1 = "new_entry") 
 ```
 
-# To delete the data from schema:
+# To DELETE the data from schema:
 ```bash
 from app.models import *
 name.objects.get(id = 2).delete()  # To delete a specific entry
@@ -133,21 +133,77 @@ python manage.py createsuperuser
 - Once username and password are created (email optional) we can go to *http://localhost:8000/admin* and login via same credentials!
 
 # To add images/files in db:
-- For images, we use: *models.ImageField(upload_to = 'location/wrt/BASE_DIR', null=True, default=None)*. Similarly for files, we use: *models.FileField()* in models.py
-
 - We then need to install Pillow library for image processing: *pipenv install Pillow*
 
+- For images, we use: *models.ImageField(upload_to = 'location/wrt/BASE_DIR', null=True, default=None)*. Similarly for files, we use: *models.FileField()* in *models.py* file.
+
 - Then in settings.py:
-    - MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-    - MEDIA_URL = '/media/'
+```bash
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+```
 
-- Then in app's urls.py:
-    - from django.conf import settings
-      from django.conf.urls.static import static
+- Then in urls.py:
+```bash
+from django.conf import settings
+from django.conf.urls.static import static
+```
 
-      (After URL_PATTERNS, add the following line)
-    - if settings.DEBUG:
-        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+- After URL_PATTERNS, add the following line:
+```bash
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+
+# To send mail using django:
+- First install *pipenv install django-allauth*
+
+- Then in *settings.py*, add the following lines:
+```bash
+INSTALLED_APPS += ['allauth', 'allauth.account', 'allauth.socialaccount']
+EMAIL_BACKENDS = 'django.core.mail.backends.smpt.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+```
+
+- Then in *utils.py*, add the following code:
+```bash
+from django.core.mail import send_mail, EmailMessage
+from django.conf import settings
+
+subject = ""
+message = ""
+from_email = settings.EMAIL_HOST_USER
+recipient_list = [""]
+
+def mail_sender(subject, message, from_email, recipient_list):
+    send_mail(subject, message, from_email, recipient_list)
+
+def mail_with_attach(subject, message, recipient_list, file_path):
+    email = EmailMessage(subject=subject, body=message, from_email=settings.EMAIL_HOST_USER, to=recipient_list)
+    email.attach_file(file_path) 
+
+```
+
+- Then in *views.py*, add the following lines:
+```bash
+from .utils import mail_sender
+
+def send_email(request):
+    mail_sender()
+    return redirect('/')
+```
+
+- Then in *urls.py* in *app_name* directory, add the following lines:
+```bash
+from django.urls import path
+from .views import send_email
+
+
 
 # To configure tailwind (if needed):
 ```bash
