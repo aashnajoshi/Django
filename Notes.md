@@ -1,7 +1,16 @@
 # Creating a virtual env using pipenv
 ```bash
+pip install pipenv
+pipenv install
+```
+- The command will create a new virtual environment with the name of Base Directory followed by some random characters in: "C:\Users\{user_name}\.virtualenvs"
+
+- To install any package:
+```bash
 pipenv install {package_name}
 ```
+
+- If we already have a Pipfile we can simply run the *pipenv install* to install all the listed packages of specific version (if mentioned), (*) means latest version available.
 
 # To activate virtual env created while creating the dir
 ```bash
