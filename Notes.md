@@ -1,4 +1,4 @@
-# Creating a virtual env using pipenv
+# Creating a virtual env using pipenv:
 ```bash
 pip install pipenv
 pipenv install
@@ -12,7 +12,7 @@ pipenv install {package_name}
 
 - If we already have a Pipfile we can simply run the *pipenv install* to install all the listed packages of specific version (if mentioned), (*) means latest version available.
 
-# To activate virtual env created while creating the dir
+# To activate the virtual env:
 ```bash
 pipenv shell
 ```
@@ -24,18 +24,18 @@ pipenv shell
 - `pillow`: An image processing library for Python.
 - `faker`: A tool for generating fake data for testing purposes.
 
-# To start a new django project in cwd (.)
+# To start a new django project in cwd (.):
 ```bash
 django-admin startproject project_name .
 ```
 Once the manage.py is created we don't need to call *django-admin* to run tasks we can simply use python manage.py to get same results
 
-# To run a django server 
+# To run a django server:
 ```bash
 python manage.py runserver
 ```
 
-# To create a django app
+# To create a django app:
 ```bash
 python manage.py startapp app_name
 ``` 
@@ -74,6 +74,7 @@ python manage.py makemigrations -n drop_all_tables app
 python manage.py migrate app
 ```
 
+# CRUD Operations on the database:
 # To ADD data in schema:
 ```bash
 python manage.py shell
