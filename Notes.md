@@ -1,225 +1,258 @@
-# Creating a virtual env using pipenv:
+# Django Notes (Beginner's Perspective)
+
+## 1. Setting Up the Development Environment
+### Creating a Virtual Environment with Pipenv:
+- Install Pipenv:
 ```bash
-pip install pipenv
-pipenv install
+    pip install pipenv
 ```
-- The command will create a new virtual environment with the name of Base Directory followed by some random characters in: "C:\Users\{user_name}\.virtualenvs"
-
-- To install any package:
+- Create a new virtual environment:
 ```bash
-pipenv install {package_name}
+    pipenv install
 ```
+This creates a virtual environment with the name of Base Directory followed by some random characters in *C:\Users\{user_name}\.virtualenvs* location.
 
-- If we already have a Pipfile we can simply run the *pipenv install* to install all the listed packages of specific version (if mentioned), (*) means latest version available.
-
-# To activate the virtual env:
+### Installing Packages
+- To install a package:
 ```bash
-pipenv shell
+    pipenv install {package_name}
+```
+- To install all packages from an existing Pipfile containing list of packages with specific version (if mentioned), (*) means latest version available.:
+```bash
+    pipenv install
+```
+### Activating the Virtual Environment
+- Activate the virtual environment:
+```bash
+    pipenv shell
 ```
 
-# Packages installed and their usage:
+## 2. Packages installed and their usage:
 - `pipenv`: A tool for managing virtual environments.
 - `django`: A high-level Python web framework for rapid development.
 - `django-debug-toolbar`: A debugging tool for Django applications.
 - `pillow`: An image processing library for Python.
 - `faker`: A tool for generating fake data for testing purposes.
 
-# To start a new django project in cwd (.):
+## 3. Creating a New Django Project
+- To start a new project in the current directory:
 ```bash
-django-admin startproject project_name .
+    django-admin startproject project_name .
 ```
-Once the manage.py is created we don't need to call *django-admin* to run tasks we can simply use python manage.py to get same results
-
-# To run a django server:
+- After *manage.py* is created, use:
 ```bash
-python manage.py runserver
-```
-
-# To create a django app:
-```bash
-python manage.py startapp app_name
-``` 
-After creating the app we need to add the *app_name* inside settings.py (in project_name) > INSTALLED_APPS
-
-# Managing Database Migrations in Django is a three-step process:
-- To create or update your database after making changes to the *models.py* file in the *app_name* directory, follow these steps:
-```bash
-python manage.py makemigrations
+    python manage.py <command>
 ```
 
-- If you want to see the SQL that will be executed for a specific migration, you can run (OPTIONAL):
+## 4. Running the Development Server
+- Start the Django development server:
 ```bash
-python manage.py sqlmigrate app_name mig_no
-```
-The migration_no. can be seen as output to first command or manually by checking the *migrations* directory inside *app_name* directory. (This step is only necessary if you want to migrate a specific version, else we can simply migrate and the latest file would be migrated)
- 
-- Finally, apply the migrations to your database with:
-```bash
-python manage.py migrate
+    python manage.py runserver
 ```
 
-- Oh, one more thing, register the *model* by adding it to *admin.py* file, where *model_name* is the name of class you used in *models.py* file:
+## 5. Creating a Django App
+- Create a new app:
 ```bash
-from .model import model_name
-admin.site.register(model_name)
+    python manage.py startapp app_name
+```
+- Add `app_name` to `INSTALLED_APPS` in *project_name/settings.py*.
+
+## 6. Database Migrations
+### Steps to Manage Migrations
+1. Create or update the database after changes in *app_name/models.py*:
+```bash
+    python manage.py makemigrations
+```
+2. View the SQL for a specific migration (optional):
+```bash
+    python manage.py sqlmigrate app_name mig_no
+```
+- The migration_no. can be seen as output to first command or manually by checking the *migrations* directory inside *app_name* directory. (This step is only necessary if you want to migrate a specific version, else we can simply migrate and the latest file would be migrated)
+
+3. Apply migrations:
+```bash
+    python manage.py migrate
 ```
 
-- To delete entries from database:
+### Registering Models in Admin
+- Add your model to *app_name/admin.py*:
+```python
+    from .models import ModelName
+    admin.site.register(ModelName)
+```
+
+4. Delete table from database:
 ```bash
-python manage.py makemigrations -n drop_all_tables app
+    python manage.py makemigrations -n drop_all_tables app
 ```
 
 - Apply the delete action:
 ```bash
-python manage.py migrate app
+    python manage.py migrate app
 ```
 
-# CRUD Operations on the database:
-# To ADD data in schema:
-```bash
-python manage.py shell
-```
+- Delete the migration file from the `migrations` directory inside the app directory and the `db.sqlite3` file.
 
-- The above command opens an interactive interpretor, to add data now we will simply import our model and add data:
+## 7. CRUD Operations
+- Open the shell:
 ```bash
-from app.models import *
-name.objects.create(field = "entry", field2 = entry2...)
+    python manage.py shell
+```
+### Adding Data
+- Add data:
+```python
+    from app.models import *
+    ModelName.objects.create(field = "entry", field2 = entry2...)
 ```
             OR
-```bash
-from app.models import *
-data = name(field = "entry", field2 = entry2....)
-data.save()
+```python
+    from app.models import *
+    data = ModelName(field = "entry", field2 = entry2....)
+    data.save()
 ```
             OR
-```bash
-from app.models import *
-data_dict = {"field1": "entry", "field2": "entry2"} #For dictionary or JSON format data
-name.objects.create(**data_dict)
+```python
+    from app.models import *
+    data_dict = {"field1": "entry", "field2": "entry2"} #For dictionary or JSON format data
+    ModelName.objects.create(**data_dict)
 ```
 
 - Here, we imported all models in *app_name/models.py*, where *name* determines the class_name of the schema we defined inside *models.py* file.
 
-# To READ data from schema:
-```bash
-from app.models import *
-data = name.objects.all()
-data # The format of data printed depends on the structure returned by __str__ in models.py
-
-for d in data:
-print(f"The data stored is {d.field1}: {d.field2}") # Or in any format you want
-
-info = name.objects.get(id = 2) 
-print(info) # Print the data saved in id 2, if id doen't exist it would throw an error
+### Reading Data
+- Fetch all entries:
+```python
+    from app.models import *
+    data = ModelName.objects.all()
+    for d in data:
+        print(f"The data stored is {d.field1}: {d.field2}")
+```
+- Fetch a specific entry:
+```python
+    info = ModelName.objects.get(id = 2) 
+    print(info) # Print the data saved in id 2, if id doen't exist it would throw an error
 ```
 - The *id* field is automatically created by django for referencing data. To bypass the error, we can use: *name.objects.filter(id = )*, if id doesn't exist it would return an empty string else return the object of given id.
 
-# To UPDATE the data in schema:
-```bash
-from app.models import *
-data = name.objects.get(id = 2) # Target the data saved in id 2
-data.field1 = "new_entry"
-data.save()
+### Updating Data
+- Update an entry:
+```python
+    from app.models import *
+    data = ModelName.objects.get(id=2)
+    data.field1 = "new_entry"
+    data.save()
 ```
             OR
-```bash
-from app.models import *
-name.objects.filter(id = 2).update(field1 = "new_entry") 
+```python
+    from app.models import *
+    ModelName.objects.filter(id = 2).update(field1 = "new_entry") 
 ```
 
-# To DELETE the data from schema:
-```bash
-from app.models import *
-name.objects.get(id = 2).delete()  # To delete a specific entry
-name.objects.all().delete()  # To delete whole data
-```
-then *python manage.py flush*
-
-# To access Django's Admin Pannel, we first need to create a super-user using:
-```bash
-python manage.py createsuperuser
+### Deleting Data
+- Delete an entry:
+```python
+    ModelName.objects.get(id=2).delete() # To delete a specific entry
+    Modelname.objects.all().delete()  # To delete whole data
 ```
 
-- Once username and password are created (email optional) we can go to *http://localhost:8000/admin* and login via same credentials!
+- then *python manage.py flush*
 
-# To add images/files in db:
-- We then need to install Pillow library for image processing: *pipenv install Pillow*
-
-- For images, we use: *models.ImageField(upload_to = 'location/wrt/BASE_DIR', null=True, default=None)*. Similarly for files, we use: *models.FileField()* in *app_name/models.py* file.
-
-- Then in *project_name/settings.py*:
+## 8. Admin Panel
+- Create a superuser:
 ```bash
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+    python manage.py createsuperuser
 ```
+- Once username and password are created (email optional). Access the admin panel at *http://localhost:8000/admin* and login via same credentials!
 
-- Then in urls.py:
+## 9. Handling Media Files
+### Adding Images/Files
+- Install Pillow:
 ```bash
-from django.conf import settings
-from django.conf.urls.static import static
+    pipenv install Pillow
 ```
+- Define fields in *app_name/models.py*:
+```python
+    models.ImageField(upload_to='uploads/', null=True, default=None)
+```
+- Configure *project_name/settings.py*:
+```python
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/media/'
+```
+- Update *project_name/urls.py*:
+```python
+    from django.conf import settings
+    from django.conf.urls.static import static
 
-- After URL_PATTERNS, add the following line:
-```bash
-if settings.DEBUG:
+    #After URL_PATTERNS, add the following lines:
+    if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ```
 
-# To send mail using django:
-- Then in *project_name/settings.py*, add the following lines:
-```bash
-EMAIL_BACKEND = 'django.core.mail.backends.smpt.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'your_email_address'
-EMAIL_HOST_PASSWORD = 'your_email_password'
-EMAIL_USE_TLS = True
+## 10. Sending Emails
+- Configure email settings in *project_name/settings.py*:
+```python
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = 'your_email@gmail.com'
+    EMAIL_HOST_PASSWORD = 'your_email_password'
+    EMAIL_USE_TLS = True
 ```
-- Then in *app_name/views.py*, add the following lines:
-```bash
-from django.contrib import messages
-from django.core.mail import EmailMessage
-from django.conf import settings
+- Adding logic into *app_name/views.py*:
+```python
+    from django.contrib import messages
+    from django.core.mail import EmailMessage
+    from django.conf import settings
 
-def send_email(request):
-    if request.method == 'POST':
-        subject = request.POST.get('subject')
-        message = request.POST.get('message')
-        recipient_list = [email.strip() for email in request.POST.get('recipients').split(',')]
-        file_path = request.FILES.get('file_path')  # Optional
+    def send_email(request):
+        if request.method == 'POST':
+            subject = request.POST.get('subject')
+            message = request.POST.get('message')
+            recipient_list = [email.strip() for email in request.POST.get('recipients').split(',')]
+            file_path = request.FILES.get('file_path')  # Optional
 
-        email = EmailMessage(subject, message, settings.EMAIL_HOST_USER, recipient_list)
-        
-        if file_path:
-            email.attach(file_path.name, file_path.read(), file_path.content_type)
+            email = EmailMessage(subject, message, settings.EMAIL_HOST_USER, recipient_list)
+            
+            if file_path:
+                email.attach(file_path.name, file_path.read(), file_path.content_type)
 
-        if email.send():
-            messages.success(request, 'Mail sent successfully!')
+            if email.send():
+                messages.success(request, 'Mail sent successfully!')
+            else:
+                messages.error(request, 'Failed to send mail. Please try again.')
+
+            return redirect('send_email')
         else:
-            messages.error(request, 'Failed to send mail. Please try again.')
-
-        return redirect('send_email')
-    else:
-        return render(request, 'index.html', context={'mail': 'mail'})
+            return render(request, 'index.html', context={'mail': 'mail'})
 ```
 
 - Then in *app_name/urls.py*, add the following lines:
-```bash
-urlpatterns = [
-    path('send_email/', views.send_email, name='send_email'),
-]
+```python
+    urlpatterns = [
+        path('send_email/', views.send_email, name='send_email'),
+    ]
+```
+## 11. Django Signals
+- Use signals for automatic actions on model changes:
+```python
+    from django.db.models.signals import post_save
+    from django.dispatch import receiver
+
+    @receiver(post_save, sender=ModelName)
+    def my_handler(sender, instance, **kwargs):
+        # code to execute after save
 ```
 
-# To configure tailwind (if needed):
+## 12. Tailwind CSS Integration
+- Install Tailwind:
 ```bash
-pipenv install django-tailwind 'django-tailwind[reload]'
+    pipenv install django-tailwind
 ```
-
-- Once installed, we add *tailwind* to INSTALLED_APPS (in *settings.py*) and then initialize tailwind
+- Configure Tailwind:
 ```bash
-python manage.py tailwind init theme
-``` 
-
+    python manage.py tailwind init theme
+```
 - Now a new directory named *theme* is created which contains all the designs and layouts using which we can use. Before that add these into *settings.py*:
     - Create new variable called TAILWIND_APP_NAME = 'theme'
     - Add *theme* to INSTALLED_APPS.
@@ -227,7 +260,16 @@ python manage.py tailwind init theme
 
 - Now run the following command to finally install.
 ```bash
-python manage.py tailwind install
+    python manage.py tailwind install
 ```
 
-- From now on, we will use two terminals: one for *python manage.py runserver* and another for *python manage.py tailwind start*
+### Running the Application
+- Use two terminals:
+    - For the Django server:
+```bash
+    python manage.py runserver
+```
+    - For Tailwind:
+```bash
+    python manage.py tailwind start
+```
