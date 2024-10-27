@@ -33,6 +33,7 @@ This creates a virtual environment with the name of Base Directory followed by s
 - `django-debug-toolbar`: A debugging tool for Django applications.
 - `pillow`: An image processing library for Python.
 - `faker`: A tool for generating fake data for testing purposes.
+- `uuid`: A tool for generating universally unique identifiers (UUIDs).
 
 ## 3. Creating a New Django Project
 - To start a new project in the current directory:
@@ -234,15 +235,25 @@ This creates a virtual environment with the name of Base Directory followed by s
     ]
 ```
 ## 11. Django Signals
-- Use signals for automatic actions on model changes:
+- Django signals allow you to perform automatic actions in response to model changes, such as creating logs. 
+
+### Common Signal Types
+- `post_save`: Triggered after a model instance is saved.
+- `pre_save`: Triggered just before a model instance is saved.
+- `post_delete`: Triggered after a model instance is deleted.
+- `pre_delete`: Triggered just before a model instance is deleted.
+
+- Usage:
 ```python
     from django.db.models.signals import post_save
     from django.dispatch import receiver
 
     @receiver(post_save, sender=ModelName)
     def my_handler(sender, instance, **kwargs):
-        # code to execute after save
+        # Code to execute after the model instance is saved
 ```
+
+- `my_handler` function is called each time the `post_save` condition is met, such as when a new model instance is created.
 
 ## 12. Tailwind CSS Integration
 - Install Tailwind:
