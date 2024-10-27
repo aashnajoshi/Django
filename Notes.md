@@ -17,7 +17,7 @@ This creates a virtual environment with the name of Base Directory followed by s
 ```bash
     pipenv install {package_name}
 ```
-- To install all packages from an existing Pipfile containing list of packages with specific version (if mentioned), (*) means latest version available.:
+- To install all packages from an existing Pipfile containing list of packages with specific version (if mentioned), (*) means latest version available:
 ```bash
     pipenv install
 ```
@@ -59,7 +59,14 @@ This creates a virtual environment with the name of Base Directory followed by s
 - Add `app_name` to `INSTALLED_APPS` in *project_name/settings.py*.
 
 ## 6. Database Migrations
-### Steps to Manage Migrations
+### Registering Models in Admin
+- Add your model to *app_name/admin.py*:
+```python
+    from .models import ModelName
+    admin.site.register(ModelName)
+```
+
+### Steps to Make Migrations
 1. Create or update the database after changes in *app_name/models.py*:
 ```bash
     python manage.py makemigrations
@@ -68,18 +75,11 @@ This creates a virtual environment with the name of Base Directory followed by s
 ```bash
     python manage.py sqlmigrate app_name mig_no
 ```
-- The migration_no. can be seen as output to first command or manually by checking the *migrations* directory inside *app_name* directory. (This step is only necessary if you want to migrate a specific version, else we can simply migrate and the latest file would be migrated)
+- The migration_no. can be seen as output to first command or manually by checking in *app_name/migrations* directory. (This step is only necessary if you want to migrate a specific version, else we can simply migrate and the latest file would be migrated)
 
 3. Apply migrations:
 ```bash
     python manage.py migrate
-```
-
-### Registering Models in Admin
-- Add your model to *app_name/admin.py*:
-```python
-    from .models import ModelName
-    admin.site.register(ModelName)
 ```
 
 4. Delete table from database:
@@ -92,7 +92,9 @@ This creates a virtual environment with the name of Base Directory followed by s
     python manage.py migrate app
 ```
 
-- Delete the migration file from the `migrations` directory inside the app directory and the `db.sqlite3` file.
+- Delete the *app_name/migrations* directory and the `db.sqlite3` file.
+
+- Run the migrations (Step 1 & 3) again to create the tables again.
 
 ## 7. CRUD Operations
 - Open the shell:
@@ -118,7 +120,7 @@ This creates a virtual environment with the name of Base Directory followed by s
     ModelName.objects.create(**data_dict)
 ```
 
-- Here, we imported all models in *app_name/models.py*, where *name* determines the class_name of the schema we defined inside *models.py* file.
+- Here, we imported all models in *app_name/models.py*, where `name` determines the class_name of the schema we defined.
 
 ### Reading Data
 - Fetch all entries:
@@ -264,10 +266,12 @@ This creates a virtual environment with the name of Base Directory followed by s
 ```bash
     python manage.py tailwind init theme
 ```
-- Now a new directory named *theme* is created which contains all the designs and layouts using which we can use. Before that add these into *settings.py*:
-    - Create new variable called TAILWIND_APP_NAME = 'theme'
-    - Add *theme* to INSTALLED_APPS.
-    - Create a new variable called NPM_BIN_PATH = r"C://Program Files//nodejs//npm.cmd"
+- Now a new directory named *theme* is created in BASE_DIR which contains all the designs and layouts using which we can use. Before that in *app_name/settings.py*:
+```python
+TAILWIND_APP_NAME = 'theme'
+NPM_BIN_PATH = r"C://Program Files//nodejs//npm.cmd"
+```
+- Add *theme* to INSTALLED_APPS.
 
 - Now run the following command to finally install.
 ```bash
@@ -284,3 +288,42 @@ This creates a virtual environment with the name of Base Directory followed by s
 ```bash
     python manage.py tailwind start
 ```
+
+## 13. Using Django ORM (Raw SQL in Django):
+
+### Using `connection`:
+    - `connection.cursor()`: Execute raw SQL queries.
+    - `connection.commit()`: Commit the changes.
+    - `connection.rollback()`: Roll back the changes.
+
+- Usage:
+```python
+    from django.db import connection
+    from django.db import transaction
+
+    @transaction.atomic
+    def add_entry(name, description):
+        with connection.cursor() as cursor:
+            cursor.execute(f"INSERT INTO ModelName (name, description) VALUES (%s, %s)", [name, description])
+```
+- Use of `django.db import transaction`: To implement the Atomicity property of the database, meaning operations are completed fully or not at all.
+
+### Using `RawSQL`:
+    - `RawSQL(query, params)`: Execute raw SQL queries with parameters.
+    - `RawSQL(query, params, output_field=None)`: Execute raw SQL queries with parameters and specify an output field.
+
+- Usage:
+```python
+    from django.db.models import RawSQL
+    from django.db import models
+
+    class ModelName(models.Model):
+        name = models.CharField(max_length=100)
+        description = models.TextField()
+
+    def add_entry(name, description):
+        query = f"INSERT INTO ModelName (name, description) VALUES {name, description}"
+        RawSQL(query, [name, description]).execute()
+```
+
+- __Comparision__: Using `connection` provides direct control over database operations and is suited for complex queries, while `RawSQL` is better for integrating raw SQL within Django’s ORM when you need to execute parameterized queries without managing database connections directly.
