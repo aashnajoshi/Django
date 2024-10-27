@@ -30,7 +30,11 @@ This creates a virtual environment with the name of Base Directory followed by s
 ## 2. Packages installed and their usage:
 - `pipenv`: A tool for managing virtual environments.
 - `django`: A high-level Python web framework for rapid development.
+
 - `django-debug-toolbar`: A debugging tool for Django applications.
+- `tinymce`: A rich text editor for web applications.
+- `django-tailwind`: A Django app to integrate Tailwind CSS framework.
+
 - `pillow`: An image processing library for Python.
 - `faker`: A tool for generating fake data for testing purposes.
 - `uuid`: A tool for generating universally unique identifiers (UUIDs).
@@ -257,40 +261,7 @@ This creates a virtual environment with the name of Base Directory followed by s
 
 - `my_handler` function is called each time the `post_save` condition is met, such as when a new model instance is created.
 
-## 12. Tailwind CSS Integration
-- Install Tailwind:
-```bash
-    pipenv install django-tailwind
-```
-- Configure Tailwind:
-```bash
-    python manage.py tailwind init theme
-```
-- Now a new directory named *theme* is created in BASE_DIR which contains all the designs and layouts using which we can use. Before that in *app_name/settings.py*:
-```python
-TAILWIND_APP_NAME = 'theme'
-NPM_BIN_PATH = r"C://Program Files//nodejs//npm.cmd"
-```
-- Add *theme* to INSTALLED_APPS.
-
-- Now run the following command to finally install.
-```bash
-    python manage.py tailwind install
-```
-
-### Running the Application
-- Use two terminals:
-    - For the Django server:
-```bash
-    python manage.py runserver
-```
-    - For Tailwind:
-```bash
-    python manage.py tailwind start
-```
-
-## 13. Using Django ORM (Raw SQL in Django):
-
+## 12. Using Django ORM (Raw SQL in Django):
 ### Using `connection`:
     - `connection.cursor()`: Execute raw SQL queries.
     - `connection.commit()`: Commit the changes.
@@ -327,3 +298,82 @@ NPM_BIN_PATH = r"C://Program Files//nodejs//npm.cmd"
 ```
 
 - __Comparision__: Using `connection` provides direct control over database operations and is suited for complex queries, while `RawSQL` is better for integrating raw SQL within Django’s ORM when you need to execute parameterized queries without managing database connections directly.
+
+# Extras (New_Apps Config)
+
+## 1. Debug Toolbar
+- Install: `pipenv install django-debug-toolbar`
+- Edits in *app_name/settings.py*:
+```python
+INSTALLED_APPS: 'debug_toolbar',
+MIDDLEWARE: 'debug_toolbar.middleware.DebugToolbarMiddleware',
+TEMPLATES: 'debug_toolbar.context_processors.debug',
+INTERNAL_IPS: ['127.0.0.1']
+```
+
+## 2. TinyMCE
+- Install: `pipenv install tinymce`
+- Edits in *app_name/settings.py*:
+```python
+INSTALLED_APPS: 'tinymce',
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 360,
+    'width': 1120,
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 20,
+    'selector': 'textarea',
+    'theme': 'modern',
+    'plugins': '''
+            textcolor save link image media preview codesample contextmenu
+            table code lists fullscreen  insertdatetime  nonbreaking
+            contextmenu directionality searchreplace wordcount visualblocks
+            visualchars code fullscreen autolink lists  charmap print  hr
+            anchor pagebreak
+            ''',
+    'toolbar1': '''
+            fullscreen preview bold italic underline | fontselect,
+            fontsizeselect  | forecolor backcolor | alignleft alignright |
+            aligncenter alignjustify | indent outdent | bullist numlist table |
+            | link image media | codesample |
+            ''',
+    'toolbar2': '''
+            visualblocks visualchars |
+            charmap hr pagebreak nonbreaking anchor |  code |
+            ''',
+    'contextmenu': 'formats | link image',
+    'menubar': True,
+    'statusbar': True,
+    }
+```
+
+## 3. Tailwind CSS Integration
+- Install: `pipenv install django-tailwind`
+
+- Configure Tailwind:
+```bash
+    python manage.py tailwind init theme
+```
+- Now a new directory named *theme* is created in BASE_DIR which contains all the designs and layouts.
+
+- Edits in *app_name/settings.py*:
+```python
+INSTALLED_APPS: 'theme',
+TAILWIND_APP_NAME = 'theme'
+NPM_BIN_PATH = r"C://Program Files//nodejs//npm.cmd"
+```
+
+- Now run the following command to finally install.
+```bash
+    python manage.py tailwind install
+```
+
+### Running the Application
+- Use two terminals:
+    - For the Django server:
+```bash
+    python manage.py runserver
+```
+    - For Tailwind:
+```bash
+    python manage.py tailwind start
+```

@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "==2.1.4"
 django-debug-toolbar = "*"
+django-tinymce4-lite = "*"
+django-tailwind = "*"
 pillow = "*"
 faker = "*"
 
