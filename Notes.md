@@ -347,7 +347,12 @@ TINYMCE_DEFAULT_CONFIG = {
 ```
 
 ## 3. Tailwind CSS Integration
-- Install: `pipenv install django-tailwind`
+- Install: `pipenv install django-tailwind 'django-tailwind[reload]'`
+
+- Edits in *app_name/settings.py*:
+```python
+INSTALLED_APPS: 'tailwind'
+```
 
 - Configure Tailwind:
 ```bash
