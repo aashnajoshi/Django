@@ -48,9 +48,7 @@ INSTALLED_APPS = [
 
     "debug_toolbar",
     "tinymce",
-    "tailwind",
-    "theme",
-    
+
     "app",
     "stream",
 ]

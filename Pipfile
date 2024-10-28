@@ -7,7 +7,6 @@ name = "pypi"
 django = "==2.1.4"
 django-debug-toolbar = "*"
 django-tinymce4-lite = "*"
-django-tailwind = {extras = ["reload"], version = "*"}
 pillow = "*"
 faker = "*"
 
