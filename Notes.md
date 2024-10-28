@@ -10,10 +10,9 @@
 ```bash
     pipenv install
 ```
-This creates a virtual environment with the name of Base Directory followed by some random characters in *C:\Users\{user_name}\.virtualenvs* location.
+- This creates a virtual environment with the name of Base Directory followed by some random characters inside: *C:\Users\{user_name}\.virtualenvs*
 
 ### Installing Packages
-- To install a package:
 ```bash
     pipenv install {package_name}
 ```
@@ -21,8 +20,8 @@ This creates a virtual environment with the name of Base Directory followed by s
 ```bash
     pipenv install
 ```
+
 ### Activating the Virtual Environment
-- Activate the virtual environment:
 ```bash
     pipenv shell
 ```
@@ -33,7 +32,6 @@ This creates a virtual environment with the name of Base Directory followed by s
 
 - `django-debug-toolbar`: A debugging tool for Django applications.
 - `tinymce`: A rich text editor for web applications.
-- `django-tailwind`: A Django app to integrate Tailwind CSS framework.
 
 - `pillow`: An image processing library for Python.
 - `faker`: A tool for generating fake data for testing purposes.
@@ -54,13 +52,17 @@ This creates a virtual environment with the name of Base Directory followed by s
 ```bash
     python manage.py runserver
 ```
+- If we want to runserver at a specific port then: 
+```bash
+    python manage.py runserver 3000
+```
 
 ## 5. Creating a Django App
 - Create a new app:
 ```bash
     python manage.py startapp app_name
 ```
-- Add `app_name` to `INSTALLED_APPS` in *project_name/settings.py*.
+- Add `app_name` to `INSTALLED_APPS` variable in *project_name/settings.py*.
 
 ## 6. Database Migrations
 ### Registering Models in Admin
@@ -80,25 +82,20 @@ This creates a virtual environment with the name of Base Directory followed by s
     python manage.py sqlmigrate app_name mig_no
 ```
 - The migration_no. can be seen as output to first command or manually by checking in *app_name/migrations* directory. (This step is only necessary if you want to migrate a specific version, else we can simply migrate and the latest file would be migrated)
-
 3. Apply migrations:
 ```bash
     python manage.py migrate
 ```
-
 4. Delete table from database:
 ```bash
     python manage.py makemigrations -n drop_all_tables app
 ```
-
 - Apply the delete action:
 ```bash
     python manage.py migrate app
 ```
-
 - Delete the *app_name/migrations* directory and the `db.sqlite3` file.
-
-- Run the migrations (Step 1 & 3) again to create the tables again.
+- Run the migrations (Step 1 & 3) again to recreate the tables.
 
 ## 7. CRUD Operations
 - Open the shell:
@@ -106,7 +103,6 @@ This creates a virtual environment with the name of Base Directory followed by s
     python manage.py shell
 ```
 ### Adding Data
-- Add data:
 ```python
     from app.models import *
     ModelName.objects.create(field = "entry", field2 = entry2...)
@@ -120,11 +116,10 @@ This creates a virtual environment with the name of Base Directory followed by s
             OR
 ```python
     from app.models import *
-    data_dict = {"field1": "entry", "field2": "entry2"} #For dictionary or JSON format data
+    data_dict = {"field1": "entry", "field2": "entry2"} #For dict or JSON data
     ModelName.objects.create(**data_dict)
 ```
-
-- Here, we imported all models in *app_name/models.py*, where `name` determines the class_name of the schema we defined.
+- Here, we imported all models in *app_name/models.py*, where `ModelName` determines the class_name of the schema we defined.
 
 ### Reading Data
 - Fetch all entries:
@@ -137,12 +132,11 @@ This creates a virtual environment with the name of Base Directory followed by s
 - Fetch a specific entry:
 ```python
     info = ModelName.objects.get(id = 2) 
-    print(info) # Print the data saved in id 2, if id doen't exist it would throw an error
+    print(info) #Data with id 2, if it doesn't exist it would throw an error.
 ```
-- The *id* field is automatically created by django for referencing data. To bypass the error, we can use: *name.objects.filter(id = )*, if id doesn't exist it would return an empty string else return the object of given id.
+- The *id* field is automatically created by django for referencing data. To bypass the error, we can use: *ModelName.objects.filter(id = )*,in this case if the id doesn't exist it would return an empty string else return the object of given id.
 
 ### Updating Data
-- Update an entry:
 ```python
     from app.models import *
     data = ModelName.objects.get(id=2)
@@ -156,13 +150,11 @@ This creates a virtual environment with the name of Base Directory followed by s
 ```
 
 ### Deleting Data
-- Delete an entry:
 ```python
     ModelName.objects.get(id=2).delete() # To delete a specific entry
     Modelname.objects.all().delete()  # To delete whole data
 ```
-
-- then *python manage.py flush*
+- Then run: *python manage.py flush*
 
 ## 8. Admin Panel
 - Create a superuser:
@@ -240,15 +232,14 @@ This creates a virtual environment with the name of Base Directory followed by s
         path('send_email/', views.send_email, name='send_email'),
     ]
 ```
+
 ## 11. Django Signals
 - Django signals allow you to perform automatic actions in response to model changes, such as creating logs. 
-
 ### Common Signal Types
 - `post_save`: Triggered after a model instance is saved.
 - `pre_save`: Triggered just before a model instance is saved.
 - `post_delete`: Triggered after a model instance is deleted.
 - `pre_delete`: Triggered just before a model instance is deleted.
-
 - Usage:
 ```python
     from django.db.models.signals import post_save
@@ -258,7 +249,6 @@ This creates a virtual environment with the name of Base Directory followed by s
     def my_handler(sender, instance, **kwargs):
         # Code to execute after the model instance is saved
 ```
-
 - `my_handler` function is called each time the `post_save` condition is met, such as when a new model instance is created.
 
 ## 12. Using Django ORM (Raw SQL in Django):
@@ -266,7 +256,6 @@ This creates a virtual environment with the name of Base Directory followed by s
     - `connection.cursor()`: Execute raw SQL queries.
     - `connection.commit()`: Commit the changes.
     - `connection.rollback()`: Roll back the changes.
-
 - Usage:
 ```python
     from django.db import connection
@@ -282,7 +271,6 @@ This creates a virtual environment with the name of Base Directory followed by s
 ### Using `RawSQL`:
     - `RawSQL(query, params)`: Execute raw SQL queries with parameters.
     - `RawSQL(query, params, output_field=None)`: Execute raw SQL queries with parameters and specify an output field.
-
 - Usage:
 ```python
     from django.db.models import RawSQL
@@ -296,11 +284,9 @@ This creates a virtual environment with the name of Base Directory followed by s
         query = f"INSERT INTO ModelName (name, description) VALUES {name, description}"
         RawSQL(query, [name, description]).execute()
 ```
-
 - __Comparision__: Using `connection` provides direct control over database operations and is suited for complex queries, while `RawSQL` is better for integrating raw SQL within Django’s ORM when you need to execute parameterized queries without managing database connections directly.
 
 # Extras (New_Apps Config)
-
 ## 1. Debug Toolbar
 - Install: `pipenv install django-debug-toolbar`
 - Edits in *app_name/settings.py*:
@@ -344,41 +330,4 @@ TINYMCE_DEFAULT_CONFIG = {
     'menubar': True,
     'statusbar': True,
     }
-```
-
-## 3. Tailwind CSS Integration
-- Install: `pipenv install django-tailwind 'django-tailwind[reload]'`
-
-- Edits in *app_name/settings.py*:
-```python
-INSTALLED_APPS: 'tailwind'
-```
-
-- Configure Tailwind:
-```bash
-    python manage.py tailwind init theme
-```
-- Now a new directory named *theme* is created in BASE_DIR which contains all the designs and layouts.
-
-- Edits in *app_name/settings.py*:
-```python
-INSTALLED_APPS: 'theme',
-TAILWIND_APP_NAME = 'theme'
-NPM_BIN_PATH = r"C://Program Files//nodejs//npm.cmd"
-```
-
-- Now run the following command to finally install.
-```bash
-    python manage.py tailwind install
-```
-
-### Running the Application
-- Use two terminals:
-    - For the Django server:
-```bash
-    python manage.py runserver
-```
-    - For Tailwind:
-```bash
-    python manage.py tailwind start
 ```
