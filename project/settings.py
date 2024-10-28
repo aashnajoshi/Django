@@ -140,34 +140,17 @@ EMAIL_HOST_PASSWORD = 'ouis gelm dyrl naf'
 
 # TinyMCE settings:
 TINYMCE_DEFAULT_CONFIG = {
-    'height': 360,
-    'width': 1120,
+    'height': 260,
+    'width': 740,
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 20,
     'selector': 'textarea',
     'theme': 'modern',
-    'plugins': '''
-            textcolor save link image media preview codesample contextmenu
-            table code lists fullscreen  insertdatetime  nonbreaking
-            contextmenu directionality searchreplace wordcount visualblocks
-            visualchars code fullscreen autolink lists  charmap print  hr
-            anchor pagebreak
-            ''',
-    'toolbar1': '''
-            fullscreen preview bold italic underline | fontselect,
-            fontsizeselect  | forecolor backcolor | alignleft alignright |
-            aligncenter alignjustify | indent outdent | bullist numlist table |
-            | link image media | codesample |
-            ''',
-    'toolbar2': '''
-            visualblocks visualchars |
-            charmap hr pagebreak nonbreaking anchor |  code |
-            ''',
-    'contextmenu': 'formats | link image',
-    'menubar': True,
-    'statusbar': True,
-    }
-
+    'plugins': 'textcolor link preview codesample table code lists fullscreen insertdatetime directionality searchreplace autolink charmap hr',
+    'toolbar': 'fullscreen preview | bold italic underline | fontselect fontsizeselect | forecolor backcolor | alignleft alignright aligncenter alignjustify | indent outdent | bullist numlist table | codesample code link',
+    'menubar': 'edit insert format',
+    'statusbar': False,
+}
 # Tailwind Settings:
 TAILWIND_APP_NAME = 'theme'
 NPM_BIN_PATH = r"C://Program Files//nodejs//npm.cmd"

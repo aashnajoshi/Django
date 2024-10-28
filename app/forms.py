@@ -1,6 +1,7 @@
 from django import forms
 from .models import Form
 from django.utils import timezone
+from tinymce.widgets import TinyMCE
 
 class FormEntry(forms.ModelForm):
     class Meta:
@@ -9,7 +10,8 @@ class FormEntry(forms.ModelForm):
         widgets = {
             'dob': forms.DateInput(attrs={'type': 'date'}),
             'date_added': forms.DateInput(attrs={'type': 'date', 'disabled': True}),
-            'message': forms.Textarea(attrs={'cols': 40, 'rows': 3}),
+            # 'message': forms.Textarea(attrs={'cols': 40, 'rows': 3}),
+            'message': TinyMCE(attrs={'cols': 40, 'rows': 3}),
         }
 
     def __init__(self, *args, **kwargs):
