@@ -13,5 +13,8 @@ class Form(models.Model):
     message = models.TextField()
     date_added = models.DateTimeField(default=timezone.now)
 
+    class Meta:
+        verbose_name_plural = "Forms" # Changes the name of the table in the admin panel
+
     def __str__(self):
         return f"{self.name}, {self.email}, {self.dob}, {self.choice}, {self.message}, {self.date_added}"
