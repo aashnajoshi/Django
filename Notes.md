@@ -183,9 +183,9 @@
     from django.conf import settings
     from django.conf.urls.static import static
 
-    #After URL_PATTERNS, add the following lines:
+    #After 'urlpatterns', add the following lines:
     if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ```
 
 ## 10. Sending Emails
@@ -215,7 +215,6 @@
             
             if file_path:
                 email.attach(file_path.name, file_path.read(), file_path.content_type)
-
             if email.send():
                 messages.success(request, 'Mail sent successfully!')
             else:
@@ -225,7 +224,6 @@
         else:
             return render(request, 'index.html', context={'mail': 'mail'})
 ```
-
 - Then in *app_name/urls.py*, add the following lines:
 ```python
     urlpatterns = [
