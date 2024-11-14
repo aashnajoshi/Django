@@ -245,7 +245,7 @@
 
     @receiver(post_save, sender=ModelName)
     def my_handler(sender, instance, **kwargs):
-        # Code to execute after the model instance is saved
+        # Code to execute after the model instance saved
 ```
 - `my_handler` function is called each time the `post_save` condition is met, such as when a new model instance is created.
 
