@@ -8,7 +8,6 @@ def health_check(request):
     <p> The links you can visit are: 
     <ul style ="none">
         <li><a href="/stream/view">Watch Stream!</a></li>
-        <li><a href="/streams">Watch Multiple Streams!</a></li>
     </ul>''')
 
 def stream_view(request):
