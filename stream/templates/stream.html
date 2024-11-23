@@ -8,6 +8,39 @@
 </head>
 <body>
     <center><h1>Live Stream</h1></center>
-    <img src="http://195.196.36.242/mjpg/video.mjpg" alt="Stream" style="height:40rem; width:auto;" class="rounded mx-auto d-block shadow-lg"/>
+    <!-- Check if 'streams' exists in context -->
+    {% if streams|length == 1 %}
+        <!-- Single stream display -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <img src="{{ streams.0.url }}" alt="Stream" class="card-img-top" style="height:40rem; width:auto;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ streams.0.location }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% elif streams|length > 1 %}
+        <!-- Multiple streams grid -->
+        <div class="container">
+            <div class="row">
+                {% for stream in streams %}
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <img src="{{ stream.url }}" alt="Stream" class="card-img-top" style="height:20rem; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ stream.location }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <p>No streams available.</p>
+    {% endif %}
 </body>
 </html>

@@ -6,7 +6,8 @@ from django.conf.urls.static import static
 #URL Configurations:
 urlpatterns = [
     path('', views.health_check),
-    path('view/', views.stream_view),
+    path('view/', views.stream_view),  # Single stream view
+    path('multiple/', views.multiple_stream_view),  # Multiple stream view
 ]
 
 if settings.DEBUG:
