@@ -11,17 +11,15 @@ def health_check(request):
         <li><a href="/stream/multiple">Watch Multiple Streams!</a></li>
     </ul>''')
 
-# View for single stream
+# View for Single Stream
 def stream_view(request):
-    return render(request, 'stream.html', {
-        'streams': [{'url': 'http://195.196.36.242/mjpg/video.mjpg', 'location': 'Luleå, Norrbotten, Sweden'}]})
+    return render(request, 'stream.html', {'streams': [{'url': 'http://195.196.36.242/mjpg/video.mjpg', 'location':'Norrbotten, Sweden'}]})
 
-# New view for multiple streams
+# View for Multiple Streams
 def multiple_stream_view(request):
-
     streams = [
-        {'url': 'http://195.196.36.242/mjpg/video.mjpg', 'location': 'Luleå, Norrbotten, Sweden'},
-        {'url': 'http://75.112.36.194/mjpg/video.mjpg', 'location': 'Sanford, Florida, US'},
-        {'url': 'http://213.124.36.2/mjpg/video.mjpg', 'location': 'Voorhout, Netherlands, US'},
-        {'url': 'http://216.14.224.50/mjpg/video.mjpg', 'location': 'Wye, Montana, US'},]
+        {'url':'http://195.196.36.242/mjpg/video.mjpg', 'location':'Norrbotten, Sweden'},
+        {'url':'http://75.112.36.194/mjpg/video.mjpg', 'location':'Florida, US'},
+        {'url':'http://213.236.250.78/mjpg/video.mjpg', 'location':'Oslo, Norway'},
+        {'url':'http://31.12.82.136/mjpg/video.mjpg', 'location':'Umea, Sweden'},]
     return render(request, 'stream.html', {'streams': streams})

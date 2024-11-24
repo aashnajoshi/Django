@@ -7,15 +7,15 @@
     <title>Stream</title>
 </head>
 <body>
-    <center><h1>Live Stream</h1></center>
     <!-- Check if 'streams' exists in context -->
     {% if streams|length == 1 %}
         <!-- Single stream display -->
+        <center><h1>Live Stream</h1></center>
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card mb-4">
-                        <img src="{{ streams.0.url }}" alt="Stream" class="card-img-top" style="height:40rem; width:auto;">
+                        <img src="{{ streams.0.url }}" alt="Stream" class="card-img-top" style="height:35rem; width:auto;">
                         <div class="card-body">
                             <h5 class="card-title">{{ streams.0.location }}</h5>
                         </div>
@@ -25,6 +25,7 @@
         </div>
     {% elif streams|length > 1 %}
         <!-- Multiple streams grid -->
+        <center><h1>Live Streams</h1></center>
         <div class="container">
             <div class="row">
                 {% for stream in streams %}
