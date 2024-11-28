@@ -63,12 +63,11 @@ def send_email(request):
         
         if file_path:
             email.attach(file_path.name, file_path.read(), file_path.content_type)
-
-        if email.send():
-            messages.success(request, 'Mail sent successfully!')
-        else:
-            messages.error(request, 'Failed to send mail. Please try again.')
-
+        try:
+            email.send()
+            messages.success(request, 'Email sent successfully!')
+        except Exception as e:
+            messages.error(request, f'Error sending email: {e}')
         return redirect('send_email')
     else:
         return render(request, 'index.html', context={'mail': 'mail', 'settings': settings})
