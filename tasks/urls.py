@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.health_check),
     path('view/', views.stream_view),  # Single stream view
     path('multiple/', views.multiple_stream_view),  # Multiple stream view
+    path('checkbox/', views.checkbox_view),  # Checkbox view
 ]
 
 if settings.DEBUG:
