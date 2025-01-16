@@ -10,6 +10,7 @@ def health_check(request):
         <li><a href="/tasks/view">Watch Stream!</a></li>
         <li><a href="/tasks/multiple">Watch Multiple Streams!</a></li>
         <li><a href="/tasks/checkbox">Checkbox</a></li>
+        <li><a href="/tasks/text_utils">Text Utils</a></li>
     </ul>''')
 
 # Single Stream View
@@ -33,3 +34,7 @@ def multiple_stream_view(request):
 # View for Checkbox
 def checkbox_view(request):
     return render(request, 'tasks.html', {'title': "Checkbox", 'checkbox': 'checkbox'})
+
+#View for Text Utils
+def text_utils_view(request):
+    return render(request, 'tasks.html', {'title': "Text Utils", 'text_utils': 'text_utils'})
