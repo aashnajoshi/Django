@@ -37,4 +37,37 @@ def checkbox_view(request):
 
 #View for Text Utils
 def text_utils_view(request):
-    return render(request, 'tasks.html', {'title': "Text Utils", 'text_utils': 'text_utils'})
+    text = ""
+    result = ""
+    
+    if request.method == "GET":
+        text = request.GET.get("text", "")
+        text_util = request.GET.get("value", "")
+        
+        if text_util:
+            result = text_utilities(text, text_util)
+    
+    return render(request, "tasks.html", {
+        'title': "Text Utilities",
+        "text": text,
+        "result": result,
+        "text_utils": 'text_utils',
+    })
+
+#Logic for Text Utils View
+def text_utilities(text, text_util):
+    # Remove Punctuations
+    if text_util == "punc":
+        punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+        return ''.join([char for char in text if char not in punctuations])
+    
+    # Capitalize Text
+    elif text_util == "capitalize":
+        return text.upper()
+    
+    # Reverse Text
+    elif text_util == "reverse":
+        return text[::-1]
+    
+    else:
+        return text
