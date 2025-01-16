@@ -18,8 +18,7 @@ def health_check(request):
         <li><a href="/app/info">Form Data</a></li>
         <li><a href="/app/send_email">Send Email</a></li>
         <li><a href="/tasks">Tasks</a></li>
-    </ul>    
-    ''')
+    </ul>''')
 
 def greet(request):
     return render(request, 'app.html', context={'name': 'Qwerty'})
