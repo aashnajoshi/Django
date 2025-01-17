@@ -46,7 +46,6 @@ def text_utils_view(request):
         
         if text_util:
             result = text_utilities(text, text_util)
-    print(f"Text: {text}, Text Utility: {text_util}, Result: {result}")
     
     return render(request, "tasks.html", {
         'title': "Text Utilities",

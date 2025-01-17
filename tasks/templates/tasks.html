@@ -70,9 +70,11 @@
             <form>
                 <div class="mb-3">
                     <!-- Button to toggle select/deselect all checkboxes -->
-                    <button type="button" class="btn btn-primary" onclick="toggleSelectDeselect()">Select/Deselect All</button>
+                    <button type="button" class="btn btn-primary" onclick="toggleSelectDeselect()">Select/Deselect
+                        All</button>
                     <!-- Button to select all except one checkbox randomly -->
-                    <button type="button" class="btn btn-secondary" onclick="selectAllExceptOne()">Select All Except One</button>
+                    <button type="button" class="btn btn-secondary" onclick="selectAllExceptOne()">Select All Except
+                        One</button>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="checkboxA" />
@@ -95,16 +97,24 @@
                     <label class="form-check-label" for="checkboxE">Checkbox E</label>
                 </div>
             </form>
+            {% elif result %}
+            <div>
+                <h4>Input Text:</h4>
+                <p>{{ text }}</p>
+                <h4>Output Result:</h4>
+                <p>{{ result }}</p>
+            </div>
             {% elif text_utils %}
             <!-- Text Utility Form -->
             <form action="/tasks/text_utils/" method="get">
                 <div class="mb-3">
-                    <textarea name="text" cols="150" rows="5" placeholder="Enter your text here...">{{ text }}</textarea><br>
+                    <textarea name="text" cols="150" rows="5"
+                        placeholder="Enter your text here...">{{ text }}</textarea><br>
                 </div>
                 <div class="mb-3">
-                    <input class="form-check-input" type="radio" name="text_util" value="punc"> Remove Punctuations <br>
-                    <input class="form-check-input" type="radio" name="text_util" value="capitalize"> Capitalize Text <br>
-                    <input class="form-check-input" type="radio" name="text_util" value="reverse"> Reverse Text <br>
+                    <input class="form-check-input" type="radio" name="text_util" value="punc">Remove Punctuations<br>
+                    <input class="form-check-input" type="radio" name="text_util" value="capitalize">Capitalize Text<br>
+                    <input class="form-check-input" type="radio" name="text_util" value="reverse">Reverse Text<br>
                 </div>
                 <button type="submit" class="btn btn-primary">Analyze Text</button>
             </form>
