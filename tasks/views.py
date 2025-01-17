@@ -61,9 +61,33 @@ def text_utilities(text, text_util):
         punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
         return ''.join([char for char in text if char not in punctuations])
     
-    # Capitalize Text
-    elif text_util == "capitalize":
+    # Upper Case Text
+    elif text_util == "uppercase":
         return text.upper()
+    
+    # Capitalize First Letter
+    elif text_util == "capitalize":
+        return text.capitalize()
+    
+    # Remove Extra Spaces
+    elif text_util == "remove_spaces":
+        return ' '.join(text.split())
+    
+    # Count Characters
+    elif text_util == "char_count":
+        return f"Character Count: {len(text)}"
+    
+    # Bold Text
+    elif text_util == "bold":
+        return f"<strong>{text}</strong>"
+    
+    # Italic Text
+    elif text_util == "italic":
+        return f"<em>{text}</em>"
+    
+    # Underline Text
+    elif text_util == "underline":
+        return f"<u>{text}</u>"
     
     # Reverse Text
     elif text_util == "reverse":
