@@ -42,10 +42,11 @@ def text_utils_view(request):
     
     if request.method == "GET":
         text = request.GET.get("text", "")
-        text_util = request.GET.get("value", "")
+        text_util = request.GET.get("text_util", "")
         
         if text_util:
             result = text_utilities(text, text_util)
+    print(f"Text: {text}, Text Utility: {text_util}, Result: {result}")
     
     return render(request, "tasks.html", {
         'title': "Text Utilities",
