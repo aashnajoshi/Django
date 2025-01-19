@@ -48,9 +48,9 @@ def text_utils_view(request):
     text = ""
     result = ""
     
-    if request.method == "GET":
-        text = request.GET.get("text", "")
-        text_util = request.GET.get("text_util", "")
+    if request.method == "POST":
+        text = request.POST.get("text", "")
+        text_util = request.POST.get("text_util", "")
         
         if text_util:
             result = text_utilities(text, text_util)

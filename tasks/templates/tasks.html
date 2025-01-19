@@ -72,13 +72,14 @@
             {% elif result %}
             <div>
                 <h4>Input Text:</h4>
-                <p>{{ text }}</p>
+                <pre>{{ text }}</pre>
                 <h4>Output Result:</h4>
-                <p>{{ result|safe }}</p>
+                <pre>{{ result|safe }}</pre>
             </div>
             {% elif text_utils %}
             <!-- Text Utility Form -->
-            <form action="/tasks/text_utils/" method="get">
+            <form action="/tasks/text_utils/" method="post">
+                {% csrf_token %}
                 <div class="mb-3">
                     <textarea name="text" cols="150" rows="5"
                         placeholder="Enter your text here...">{{ text }}</textarea><br>
