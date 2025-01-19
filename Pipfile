@@ -9,6 +9,7 @@ django-debug-toolbar = "*"
 django-tinymce4-lite = "*"
 pillow = "*"
 faker = "*"
+selenium = "*"
 
 [dev-packages]
 
