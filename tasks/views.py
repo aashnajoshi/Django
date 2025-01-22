@@ -64,42 +64,22 @@ def text_utils_view(request):
 
 # Logic for Text Utils View
 def text_utilities(text, text_util):
-    # Remove Punctuations
-    if text_util == "punc":
-        punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
-        return ''.join([char for char in text if char not in punctuations])
-    
-    # Upper Case Text
-    elif text_util == "uppercase":
+    if text_util == "punc": # Remove Punctuation
+        return ''.join([char for char in text if char not in ('''!()-[]{};:'"\,<>./?@#$%^&*_~''')])
+    elif text_util == "uppercase": # Upper Case Text
         return text.upper()
-    
-    # Capitalize First Letter
-    elif text_util == "capitalize":
+    elif text_util == "capitalize": # Capitalize First Letter
         return text.capitalize()
-    
-    # Remove Extra Spaces
-    elif text_util == "remove_spaces":
-        return ' '.join(text.split())
-    
-    # Count Characters
-    elif text_util == "char_count":
+    elif text_util == "remove_spaces": # Remove Extra Spaces
+        return ' '.join(text.split()) 
+    elif text_util == "char_count": # Count Characters
         return f"Character Count: {len(text)}"
-    
-    # Bold Text
-    elif text_util == "bold":
+    elif text_util == "bold": # Bold Text
         return f"<strong>{text}</strong>"
-    
-    # Italic Text
-    elif text_util == "italic":
+    elif text_util == "italic": # Italic Text
         return f"<em>{text}</em>"
-    
-    # Underline Text
-    elif text_util == "underline":
+    elif text_util == "underline": # Underline Text
         return f"<u>{text}</u>"
-    
-    # Reverse Text
-    elif text_util == "reverse":
+    elif text_util == "reverse": # Reverse Text
         return text[::-1]
-    
-    else:
-        return text
+    else: return text

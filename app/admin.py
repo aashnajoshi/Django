@@ -5,8 +5,6 @@ from .models import *
 
 class FormAdmin(admin.ModelAdmin):
     formfield_overrides = {
-        models.TextField: {'widget': TinyMCE()},
-        }
+        models.TextField: {'widget': TinyMCE()},}
 
-# Register your models here.
 admin.site.register(Form, FormAdmin)

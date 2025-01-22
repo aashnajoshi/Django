@@ -30,8 +30,7 @@ def user_data(request):
             {'name': 'Asdfg', 'age': 23},
             {'name': 'Zxcvb', 'age': 34},
             {'name': 'Poiuy', 'age': 43},
-            {'name': 'Lkjhg', 'age': 21}
-        ]}
+            {'name': 'Lkjhg', 'age': 21}]}
     return render(request, 'app.html', context={'info': dummy_data})
 
 def input_form_data(request):
@@ -68,5 +67,6 @@ def send_email(request):
         except Exception as e:
             messages.error(request, f'Error sending email: {e}')
         return redirect('send_email')
+
     else:
         return render(request, 'app.html', context={'mail': 'mail', 'settings': settings})

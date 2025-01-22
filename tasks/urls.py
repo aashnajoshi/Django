@@ -11,6 +11,5 @@ urlpatterns = [
     path('checkbox/', views.checkbox_view),  # Checkbox view
     path('text_utils/', views.text_utils_view),  # Text Utils view
 ]
-
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
