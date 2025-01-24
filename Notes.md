@@ -2,10 +2,7 @@
 
 ## 1. Setting Up the Development Environment
 ### Creating a Virtual Environment with Pipenv:
-- Install Pipenv:
-```bash
-    pip install pipenv
-```
+- Install: `pip install pipenv`
 - Create a new virtual environment:
 ```bash
     pipenv install
@@ -29,6 +26,7 @@
 ## 2. Packages installed and their usage:
 - `pipenv`: A tool for managing virtual environments.
 - `django`: A high-level Python web framework for rapid development.
+- `razorpay`: A tool for secure Payment Gateway integration.
 
 - `django-debug-toolbar`: A debugging tool for Django applications.
 - `tinymce`: A rich text editor for web applications.
@@ -38,16 +36,16 @@
 - `uuid`: A tool for generating universally unique identifiers (UUIDs).
 
 ## 3. Creating a New Django Project
-- To start a new project in the current directory:
+- To start a new project in the cwd (.):
 ```bash
     django-admin startproject project_name .
 ```
-- After *manage.py* is created, use:
+- After *manage.py* file is created, now we use:
 ```bash
     python manage.py <command>
 ```
 
-## 4. Running the Development Server
+## 4. Running the Development Server (in Terminal)
 - Start the Django development server:
 ```bash
     python manage.py runserver
@@ -66,13 +64,13 @@
 
 ## 6. Database Migrations
 ### Registering Models in Admin
-- Add your model to *app_name/admin.py*:
+- Edits in *app_name/admin.py*:
 ```python
     from .models import ModelName
     admin.site.register(ModelName)
 ```
 
-### Steps to Make Migrations
+### Steps to Make Migrations (in Terminal)
 1. Create or update the database after changes in *app_name/models.py*:
 ```bash
     python manage.py makemigrations
@@ -102,7 +100,7 @@
 ```bash
     python manage.py shell
 ```
-### Adding Data
+### Adding Data (Create)
 ```python
     from app.models import *
     ModelName.objects.create(field = "entry", field2 = entry2...)
@@ -121,7 +119,7 @@
 ```
 - Here, we imported all models in *app_name/models.py*, where `ModelName` determines the class_name of the schema we defined.
 
-### Reading Data
+### Reading Data (Read)
 - Fetch all entries:
 ```python
     from app.models import *
@@ -136,7 +134,7 @@
 ```
 - The *id* field is automatically created by django for referencing data. To bypass the error, we can use: *ModelName.objects.filter(id = )*,in this case if the id doesn't exist it would return an empty string else return the object of given id.
 
-### Updating Data
+### Updating Data (Update)
 ```python
     from app.models import *
     data = ModelName.objects.get(id=2)
@@ -149,7 +147,7 @@
     ModelName.objects.filter(id = 2).update(field1 = "new_entry") 
 ```
 
-### Deleting Data
+### Deleting Data (Delete)
 ```python
     ModelName.objects.get(id=2).delete() # To delete a specific entry
     Modelname.objects.all().delete()  # To delete whole data
@@ -165,20 +163,17 @@
 
 ## 9. Handling Media Files
 ### Adding Images/Files
-- Install Pillow:
-```bash
-    pipenv install Pillow
-```
-- Define fields in *app_name/models.py*:
+- Install: `pipenv install Pillow`
+- Edits in *app_name/models.py*:
 ```python
     models.ImageField(upload_to='uploads/', null=True, default=None)
 ```
-- Configure *project_name/settings.py*:
+- Edits in *project_name/settings.py*:
 ```python
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     MEDIA_URL = '/media/'
 ```
-- Update *project_name/urls.py*:
+- Edits in *project_name/urls.py*:
 ```python
     from django.conf import settings
     from django.conf.urls.static import static
@@ -189,7 +184,7 @@
 ```
 
 ## 10. Sending Emails
-- Configure email settings in *project_name/settings.py*:
+- Edits in *project_name/settings.py*:
 ```python
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'smtp.gmail.com'
@@ -198,7 +193,7 @@
     EMAIL_HOST_PASSWORD = 'your_email_password'
     EMAIL_USE_TLS = True
 ```
-- Adding logic into *app_name/views.py*:
+- Edits in *app_name/views.py*:
 ```python
     from django.contrib import messages
     from django.core.mail import EmailMessage
@@ -224,7 +219,7 @@
         else:
             return render(request, 'index.html', context={'mail': 'mail'})
 ```
-- Then in *app_name/urls.py*, add the following lines:
+- Edits in *app_name/urls.py*:
 ```python
     urlpatterns = [
         path('send_email/', views.send_email, name='send_email'),
@@ -284,10 +279,113 @@
 ```
 - __Comparision__: Using `connection` provides direct control over database operations and is suited for complex queries, while `RawSQL` is better for integrating raw SQL within Django’s ORM when you need to execute parameterized queries without managing database connections directly.
 
+## 13. Payment Gateways in Django (Using RazorPay):
+- Install: `pipenv install razorpay`
+- Edits in *project_name/settings.py*:
+```python
+RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID')
+RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET') 
+```
+
+- Edits in *app_name/models.py*:
+```python
+from django.db import models
+
+class Payment(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=100, default='Pending')
+    razorpay_order_id = models.CharField(max_length=255)
+    razorpay_payment_id = models.CharField(max_length=255, null=True, blank=True)
+    razorpay_signature = models.CharField(max_length=255, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Payment by {self.user.username} for ₹{self.amount}'
+```
+
+- Edits in *app_name/views.py*: 
+```python
+import razorpay
+from django.conf import settings
+from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import hashlib
+import json
+from .models import Payment
+
+# Initialize Razorpay client
+client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+
+def payment_page(request):
+    return render(request, 'payment_page.html')
+
+def create_order(request):
+    if request.method == 'POST':
+        amount = 5000  # Can be fetched from DB according to item purchased
+        currency = 'INR'
+
+        try:
+            # Create a Razorpay order
+            order = client.order.create(dict(amount=amount, currency=currency, payment_capture='1'))
+
+            # Save Razorpay order_ID to db
+            payment = Payment(user=request.user, amount=amount / 100, status='Pending', razorpay_order_id=order['id'])
+            payment.save()
+
+            return JsonResponse({
+                'razorpay_order_id': order['id'],
+                'razorpay_key_id': settings.RAZORPAY_KEY_ID,
+            })
+        except razorpay.errors.RazorpayError as e:
+            return JsonResponse({'error': str(e)})
+
+    return redirect('payment:payment_page')
+
+
+@csrf_exempt
+def verify_payment(request):
+    if request.method == "POST":
+        # Get payment data from ui
+        data = json.loads(request.body)
+        razorpay_order_id = data.get('razorpay_order_id')
+        razorpay_payment_id = data.get('razorpay_payment_id')
+        razorpay_signature = data.get('razorpay_signature')
+
+        # Fetch order object from Razorpay
+        try:
+            order = client.order.fetch(razorpay_order_id)
+        except razorpay.errors.RazorpayError as e:
+            return JsonResponse({'success': False, 'error': 'Error fetching Razorpay order'})
+
+        # Verify payment signature
+        generated_signature = f"{razorpay_order_id}|{razorpay_payment_id}"
+        expected_signature = hashlib.sha256(generated_signature.encode('utf-8')).hexdigest()
+
+        if razorpay_signature == expected_signature: # Payment success, updating the database
+            try:
+                payment = Payment.objects.get(razorpay_order_id=razorpay_order_id)
+                payment.status = 'Completed'
+                payment.razorpay_payment_id = razorpay_payment_id
+                payment.razorpay_signature = razorpay_signature
+                payment.save()
+
+                return JsonResponse({'success': True})
+
+            except Payment.DoesNotExist:
+                return JsonResponse({'success': False, 'error': 'Payment record not found'})
+        else:
+            return JsonResponse({'success': False, 'error': 'Invalid signature'})
+
+    return JsonResponse({'success': False, 'error': 'Invalid request'})
+```
+
+
 # Extras (New_Apps Config)
 ## 1. Debug Toolbar
 - Install: `pipenv install django-debug-toolbar`
-- Edits in *app_name/settings.py*:
+- Edits in *project_name/settings.py*:
 ```python
 INSTALLED_APPS: 'debug_toolbar',
 MIDDLEWARE: 'debug_toolbar.middleware.DebugToolbarMiddleware',
@@ -297,7 +395,7 @@ INTERNAL_IPS: ['127.0.0.1']
 
 ## 2. TinyMCE
 - Install: `pipenv install tinymce`
-- Edits in *app_name/settings.py*:
+- Edits in *project_name/settings.py*:
 ```python
 INSTALLED_APPS: 'tinymce',
 TINYMCE_DEFAULT_CONFIG = {
