@@ -85,4 +85,4 @@ def text_utilities(text, text_util):
         return text[::-1]
     else: return text
 
-# Payment View
+# Payment View (Using Razorpay)
