@@ -381,7 +381,6 @@ def verify_payment(request):
     return JsonResponse({'success': False, 'error': 'Invalid request'})
 ```
 
-
 # Extras (New_Apps Config)
 ## 1. Debug Toolbar
 - Install: `pipenv install django-debug-toolbar`

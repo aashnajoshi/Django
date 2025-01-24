@@ -86,3 +86,6 @@ def text_utilities(text, text_util):
     else: return text
 
 # Payment View (Using Razorpay)
+@csrf_exempt
+def payment_view():
+    pass
