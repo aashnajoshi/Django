@@ -84,8 +84,3 @@ def text_utilities(text, text_util):
     elif text_util == "reverse": # Reverse Text
         return text[::-1]
     else: return text
-
-# Payment View (Using Razorpay)
-@csrf_exempt
-def payment_view():
-    pass

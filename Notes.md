@@ -280,6 +280,9 @@
 - __Comparision__: Using `connection` provides direct control over database operations and is suited for complex queries, while `RawSQL` is better for integrating raw SQL within Django’s ORM when you need to execute parameterized queries without managing database connections directly.
 
 ## 13. Payment Gateways in Django (Using RazorPay):
+- For Paytm Integration: https://youtu.be/cdtPcTIuazI
+- For Razorpay Integration: https://youtu.be/WY1gDoU8xvI
+
 - Install: `pipenv install razorpay`
 - Edits in *project_name/settings.py*:
 ```python
