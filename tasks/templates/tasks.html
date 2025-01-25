@@ -36,39 +36,36 @@
             {% endfor %}
             {% elif checkbox %}
             <!-- Checkboxes -->
-            <div class="container">
-                <div class="row">
-                    <form method="POST">
-                        {% csrf_token %}
-                        <!-- Button to toggle select/deselect all checkboxes -->
-                        <button type="submit" name="action" value="toggle_select_deselect" class="btn btn-primary">Select/Deselect
-                            All</button>
-                        <!-- Button to select all except one checkbox randomly -->
-                        <button type="submit" name="action" value="select_all_except_one" class="btn btn-secondary">Select All
-                            Except One</button>
-                    </form>
-                    <form>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="checkboxA" />
-                            <label class="form-check-label" for="checkboxA">Checkbox A</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="checkboxB" />
-                            <label class="form-check-label" for="checkboxB">Checkbox B</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="checkboxC" />
-                            <label class="form-check-label" for="checkboxC">Checkbox C</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="checkboxD" />
-                            <label class="form-check-label" for="checkboxD">Checkbox D</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="checkboxE" />
-                            <label class="form-check-label" for="checkboxE">Checkbox E</label>
-                        </div>
-                    </form>
+            <form>
+                <div class="mb-3">
+                    <!-- Button to toggle select/deselect all checkboxes -->
+                    <button type="button" class="btn btn-primary" onclick="toggleSelectDeselect()">Select/Deselect
+                        All</button>
+                    <!-- Button to select all except one checkbox randomly -->
+                    <button type="button" class="btn btn-secondary" onclick="selectAllExceptOne()">Select All Except
+                        One</button>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="checkboxA" />
+                    <label class="form-check-label" for="checkboxA">Checkbox A</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="checkboxB" />
+                    <label class="form-check-label" for="checkboxB">Checkbox B</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="checkboxC" />
+                    <label class="form-check-label" for="checkboxC">Checkbox C</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="checkboxD" />
+                    <label class="form-check-label" for="checkboxD">Checkbox D</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="checkboxE" />
+                    <label class="form-check-label" for="checkboxE">Checkbox E</label>
+                </div>
+            </form>
             {% elif result %}
             <div>
                 <h4>Input Text:</h4>
@@ -102,5 +99,33 @@
             {% endif %}
         </div>
     </div>
+    <script>
+        // Function to toggle select/deselect all checkboxes
+        function toggleSelectDeselect() {
+            var checkboxes = document.querySelectorAll('.form-check-input');
+            var allSelected = true;
+
+            // Check if all checkboxes are selected
+            checkboxes.forEach(function (checkbox) {
+                if (!checkbox.checked) {
+                    allSelected = false;
+                }});
+
+            // If all are selected, deselect them, else select all
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = !allSelected;  // If all are selected, deselect, else select all
+            });}
+
+        // Function to select all checkboxes except one randomly
+        function selectAllExceptOne() {
+            var checkboxes = document.querySelectorAll('.form-check-input');
+            var indexToLeaveUnchecked = Math.floor(Math.random() * checkboxes.length); // Random index
+            checkboxes.forEach(function (checkbox, index) {
+                if (index === indexToLeaveUnchecked) {
+                    checkbox.checked = false; // Leave this one unchecked
+                } else {
+                    checkbox.checked = true; // Check the rest
+                } }); }
+    </script>
 </body>
 </html>

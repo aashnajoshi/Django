@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import subprocess
 
 # Function to handle health check
 def health_check(request):
@@ -35,14 +34,7 @@ def multiple_stream_view(request):
 
 # View for Checkbox
 def checkbox_view(request):
-    if request.method == "POST":
-        # Call the check.py script (run it as a subprocess)
-        action = request.POST.get("action")
-        if action == "toggle_select_deselect":
-            subprocess.run(["python", "tasks\check.py", "toggle_select_deselect"])
-        elif action == "select_all_except_one":
-            subprocess.run(["python", "tasks\check.py", "select_all_except_one"])
-    return render(request, 'tasks.html', {'title': "Checkbox", 'checkbox': 'checkbox'})
+     return render(request, 'tasks.html', {'title': "Checkbox", 'checkbox': 'checkbox'})
 
 # View for Text Utils
 def text_utils_view(request):
