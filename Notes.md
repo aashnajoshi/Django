@@ -26,7 +26,6 @@
 ## 2. Packages installed and their usage:
 - `pipenv`: A tool for managing virtual environments.
 - `django`: A high-level Python web framework for rapid development.
-- `razorpay`: A tool for secure Payment Gateway integration.
 
 - `django-debug-toolbar`: A debugging tool for Django applications.
 - `tinymce`: A rich text editor for web applications.
@@ -34,6 +33,7 @@
 - `pillow`: An image processing library for Python.
 - `faker`: A tool for generating fake data for testing purposes.
 - `uuid`: A tool for generating universally unique identifiers (UUIDs).
+- `razorpay`: A tool for secure Payment Gateway integration.
 
 ## 3. Creating a New Django Project
 - To start a new project in the cwd (.):
@@ -160,6 +160,11 @@
     python manage.py createsuperuser
 ```
 - Once username and password are created (email optional). Access the admin panel at *http://localhost:8000/admin* and login via same credentials!
+
+- If you forgot the password, You can reset it using:
+```bash
+python manage.py changepassword username
+```
 
 ## 9. Handling Media Files
 ### Adding Images/Files
