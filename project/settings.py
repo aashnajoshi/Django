@@ -124,5 +124,4 @@ TINYMCE_DEFAULT_CONFIG = {
     'plugins': 'textcolor link preview codesample table code lists fullscreen insertdatetime directionality searchreplace autolink charmap hr',
     'toolbar': 'fullscreen preview | bold italic underline | fontselect fontsizeselect | forecolor backcolor | alignleft alignright aligncenter alignjustify | indent outdent | bullist numlist table | codesample code link',
     'menubar': 'edit insert format',
-    'statusbar': False,
-}
+    'statusbar': False,}
