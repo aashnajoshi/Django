@@ -11,7 +11,6 @@ def health_check(request):
         <li><a href="/tasks/multiple">Watch Multiple Streams!</a></li>
         <li><a href="/tasks/checkbox">Checkbox</a></li>
         <li><a href="/tasks/text_utils">Text Utils</a></li>
-        <li><a href="/tasks/payment">Payment</a></li>
     </ul>''')
 
 # Single Stream View
