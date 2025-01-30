@@ -21,7 +21,7 @@ def health_check(request):
     </ul>''')
 
 def greet(request):
-    return render(request, 'app.html', context={'name': 'Qwerty'})
+    return render(request, 'app/index.html', context={'name': 'Qwerty'})
 
 def user_data(request):
     dummy_data = {
@@ -31,7 +31,7 @@ def user_data(request):
             {'name': 'Zxcvb', 'age': 34},
             {'name': 'Poiuy', 'age': 43},
             {'name': 'Lkjhg', 'age': 21}]}
-    return render(request, 'app.html', context={'info': dummy_data})
+    return render(request, 'app/index.html', context={'info': dummy_data})
 
 def input_form_data(request):
     if request.method == 'POST':
@@ -44,11 +44,11 @@ def input_form_data(request):
             messages.error(request, 'Form submission failed')
     else:
         form = FormEntry()
-    return render(request, 'app.html', context={'form': form})
+    return render(request, 'app/index.html', context={'form': form})
 
 def form_data(request):
     data = Form.objects.all()
-    return render(request, 'app.html', context={'data': data})
+    return render(request, 'app/index.html', context={'data': data})
 
 def send_email(request):
     if request.method == 'POST':
@@ -69,4 +69,4 @@ def send_email(request):
         return redirect('send_email')
 
     else:
-        return render(request, 'app.html', context={'mail': 'mail', 'settings': settings})
+        return render(request, 'app/index.html', context={'mail': 'mail', 'settings': settings})
