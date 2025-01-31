@@ -39,7 +39,7 @@
                         <p class="card-text"><strong>Image:</strong><img src="{{ d.img.url }}" alt="Uploaded Image" class="img-fluid" style="max-height: 200px; object-fit: contain;"></p>
                         <p class="card-text"><strong>Doc:</strong><a href="{{ d.doc.url }}" target="_blank">View Document</a></p>
                         <p class="card-text"><strong>Choice:</strong> {{ d.choice }}</p>
-                        <p class="card-text"><strong>Message:</strong> {{ d.message }}</p>
+                        <p class="card-text"><strong>Message:</strong> {{ d.message | safe}}</p>
                         <p class="card-text"><strong>Date Added:</strong> {{ d.date_added }}</p>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
             <hr>
             <form class= "col-6 mx-auto" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {{ form.as_p | safe }}
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>

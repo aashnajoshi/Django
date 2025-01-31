@@ -48,6 +48,7 @@ MIDDLEWARE = [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
+MESSAGE_LEVEL = 20
 ROOT_URLCONF = 'project.urls'
 INTERNAL_IPS = ["127.0.0.1",]
 

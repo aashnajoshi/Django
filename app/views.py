@@ -39,9 +39,10 @@ def input_form_data(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Form submitted successfully')
-            return redirect('form')
+            return redirect('info')
         else:
             messages.error(request, 'Form submission failed')
+            form = FormEntry(request.POST, request.FILES)
     else:
         form = FormEntry()
     return render(request, 'app/index.html', context={'form': form, 'title': "Enter Form Data"})
