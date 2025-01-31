@@ -194,10 +194,13 @@ python manage.py changepassword username
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 587
-    EMAIL_HOST_USER = 'your_email@gmail.com'
-    EMAIL_HOST_PASSWORD = 'your_email_password'
+    EMAIL_HOST_USER = 'your_email@gmail.com' # Or using .env
+    EMAIL_HOST_PASSWORD = 'your_email_password' # Or using .env 
     EMAIL_USE_TLS = True
 ```
+- To get email password use: https://myaccount.google.com/apppasswords
+and create a new app save this password without spaces, suppose your password shows 'weqc ljsn juef hick' then your password is: 'weqcljsnjuefhick'
+
 - Edits in *app_name/views.py*:
 ```python
     from django.contrib import messages
