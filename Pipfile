@@ -10,6 +10,7 @@ django-tinymce4-lite = "*"
 pillow = "*"
 faker = "*"
 selenium = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

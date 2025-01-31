@@ -8,7 +8,6 @@ from django.conf.urls.static import static
 #URL Configurations:
 urlpatterns = [
     path('', health_check),
-    path('tinymce/', include('tinymce.urls')),
     path('admin/', admin.site.urls),
     path('debug/', include(debug_toolbar.urls)),
     path('app/', include('app.urls')),
