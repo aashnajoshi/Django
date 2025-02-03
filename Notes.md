@@ -316,7 +316,7 @@ INTERNAL_IPS: ['127.0.0.1']
 ```
 
 ## 2. TinyMCE
-- Install: `pipenv install django-tinymce4-lite`
+- Install: `pipenv install django-tinymce`
 - Edits in *project_name/settings.py*:
 ```python
 INSTALLED_APPS: 'tinymce',
