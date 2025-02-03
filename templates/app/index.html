@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,7 +58,7 @@
                         <li class="list-group-item"><strong>Date of Birth:</strong> {{ d.dob }}</li>
                         <li class="list-group-item"><strong>Choice:</strong> {{ d.choice }}</li>
                         <li class="list-group-item"><strong>Doc:</strong> <a href="{{ d.doc.url }}" target="_blank">View Document</a></li>
-                        <li class="list-group-item"><strong>Date Added:</strong> {{ d.date_added }}</li>
+                        <li class="list-group-item"><strong>Date Added:</strong> {{ d.date_added | naturaltime}</li>
                     </ul>
                 </div>
             </div>

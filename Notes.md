@@ -291,106 +291,18 @@ and create a new app save this password without spaces, suppose your password sh
 - For Paytm Integration: https://youtu.be/cdtPcTIuazI
 - For Razorpay Integration: https://youtu.be/WY1gDoU8xvI
 
-- Install: `pipenv install razorpay`
+## 14. x Days y Hours Ago:
 - Edits in *project_name/settings.py*:
 ```python
-RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID')
-RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET') 
+    INSTALLED_APPS = 'django.contrib.humanize'
 ```
+- Usage:
+```html
+{% load humanize %}
 
-- Edits in *app_name/models.py*:
-```python
-from django.db import models
-
-class Payment(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    status = models.CharField(max_length=100, default='Pending')
-    razorpay_order_id = models.CharField(max_length=255)
-    razorpay_payment_id = models.CharField(max_length=255, null=True, blank=True)
-    razorpay_signature = models.CharField(max_length=255, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f'Payment by {self.user.username} for ₹{self.amount}'
+{{content.created | naturaltime}}
 ```
-
-- Edits in *app_name/views.py*: 
-```python
-import razorpay
-from django.conf import settings
-from django.shortcuts import render, redirect
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-import hashlib
-import json
-from .models import Payment
-
-# Initialize Razorpay client
-client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
-
-def payment_page(request):
-    return render(request, 'payment_page.html')
-
-def create_order(request):
-    if request.method == 'POST':
-        amount = 5000  # Can be fetched from DB according to item purchased
-        currency = 'INR'
-
-        try:
-            # Create a Razorpay order
-            order = client.order.create(dict(amount=amount, currency=currency, payment_capture='1'))
-
-            # Save Razorpay order_ID to db
-            payment = Payment(user=request.user, amount=amount / 100, status='Pending', razorpay_order_id=order['id'])
-            payment.save()
-
-            return JsonResponse({
-                'razorpay_order_id': order['id'],
-                'razorpay_key_id': settings.RAZORPAY_KEY_ID,
-            })
-        except razorpay.errors.RazorpayError as e:
-            return JsonResponse({'error': str(e)})
-
-    return redirect('payment:payment_page')
-
-
-@csrf_exempt
-def verify_payment(request):
-    if request.method == "POST":
-        # Get payment data from ui
-        data = json.loads(request.body)
-        razorpay_order_id = data.get('razorpay_order_id')
-        razorpay_payment_id = data.get('razorpay_payment_id')
-        razorpay_signature = data.get('razorpay_signature')
-
-        # Fetch order object from Razorpay
-        try:
-            order = client.order.fetch(razorpay_order_id)
-        except razorpay.errors.RazorpayError as e:
-            return JsonResponse({'success': False, 'error': 'Error fetching Razorpay order'})
-
-        # Verify payment signature
-        generated_signature = f"{razorpay_order_id}|{razorpay_payment_id}"
-        expected_signature = hashlib.sha256(generated_signature.encode('utf-8')).hexdigest()
-
-        if razorpay_signature == expected_signature: # Payment success, updating the database
-            try:
-                payment = Payment.objects.get(razorpay_order_id=razorpay_order_id)
-                payment.status = 'Completed'
-                payment.razorpay_payment_id = razorpay_payment_id
-                payment.razorpay_signature = razorpay_signature
-                payment.save()
-
-                return JsonResponse({'success': True})
-
-            except Payment.DoesNotExist:
-                return JsonResponse({'success': False, 'error': 'Payment record not found'})
-        else:
-            return JsonResponse({'success': False, 'error': 'Invalid signature'})
-
-    return JsonResponse({'success': False, 'error': 'Invalid request'})
-```
+- Where "created" is a DateTime Field in model named "content", which needs to be converted into natural time.
 
 # Extras (New_Apps Config)
 ## 1. Debug Toolbar
