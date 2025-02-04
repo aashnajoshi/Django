@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.core.validators import FileExtensionValidator
 
 # Create your models here. (Database structures)
 class Form(models.Model):
@@ -7,8 +8,8 @@ class Form(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(unique= True)
     dob = models.DateField()
-    img = models.ImageField(upload_to='img/', null=True, default=None)
-    doc = models.FileField(upload_to='doc/', null=True, default=None)
+    img = models.ImageField(upload_to='img/', null=True, default=None, validators = [FileExtensionValidator(allowed_extensions = ['jpeg', 'jpg', 'png'])
+    doc = models.FileField(upload_to='doc/', null=True, default=None, , validators= [FileExtensionValidator(allowed_extensions = ['pdf', 'doc', 'txt'])
     choice = models.IntegerField(choices=OPTIONS, default=1)
     message = models.TextField()
     date_added = models.DateTimeField(default=timezone.now)
