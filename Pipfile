@@ -11,6 +11,7 @@ pillow = "*"
 faker = "*"
 selenium = "*"
 python-dotenv = "*"
+djangorestframework = "*"
 
 [dev-packages]
 

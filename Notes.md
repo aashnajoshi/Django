@@ -304,6 +304,42 @@ and create a new app save this password without spaces, suppose your password sh
 ```
 - Where "created" is a DateTime Field in model named "content", which needs to be converted into natural time.
 
+## 15. Django REST Framework:
+- Install: `pipenv install djangorestframework`
+- Edits in *project_name/settings.py*:
+```python
+    INSTALLED_APPS = 'rest_framework'
+```
+- Create a new Folder named API to store all API-related files. Create __init__.py, views.py and urls.py.
+- Edits in *API/views.py*:
+```python
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
+@api_view(['GET'])
+def getData(request):
+    person = {'name': 'ABC', 'age': 12}
+    return Response(person)
+```
+
+- Edits in *project_name/urls.py*:
+```python
+urlpatterns = [
+    path('api/', include('api.urls')),
+]
+```
+- Create a new file 'serializers.py' since response doesn't handle complex django data types. Edits in *API/serializers.py*:
+```python
+from rest_framework import serializers
+from app.models import model_name
+
+class Model_nameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = model_name
+        fields = '__all__'
+```
+- Then we edit the views.py file to render the data properly rather than shwoing static data. Which you can see the in "API/views.py".
+
 # Extras (New_Apps Config)
 ## 1. Debug Toolbar
 - Install: `pipenv install django-debug-toolbar`

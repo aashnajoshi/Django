@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "203040acaf424c43f7a3736b09b491649881c4f43128ff6df9aea5a634dd4942"
+            "sha256": "2682c50303a618ee2549e8d5942493f3a98684abb1858ca6f821a52c0c2e5f49"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -123,13 +123,22 @@
             "markers": "python_version >= '3.5'",
             "version": "==2.2.1"
         },
-        "django-tinymce4-lite": {
+        "django-tinymce": {
             "hashes": [
-                "sha256:2d53510ddb5fe20f25e525d4eaf7c8f8a567b85c9cc29f8ab2964419d9352d88",
-                "sha256:eb0ee7eda19970d06484f9e121871de01287b5345c4007ea2582d6f80ec3edb3"
+                "sha256:6f4f6227c2c608052081a436a1e3054c441caae24c9e0c8c3010536e24749e29",
+                "sha256:da5732413f51cf854352e3148f06f170b59d95a6c6a43fd9f7ccfdd1849f4bf9"
             ],
             "index": "pypi",
-            "version": "==1.8.0"
+            "version": "==3.6.1"
+        },
+        "djangorestframework": {
+            "hashes": [
+                "sha256:5cc724dc4b076463497837269107e1995b1fbc917468d1b92d188fd1af9ea789",
+                "sha256:a5967b68a04e0d97d10f4df228e30f5a2d82ba63b9d03e1759f84993b7bf1b53"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.5'",
+            "version": "==3.11.2"
         },
         "exceptiongroup": {
             "hashes": [
@@ -163,12 +172,6 @@
             ],
             "markers": "python_version >= '3.6'",
             "version": "==3.10"
-        },
-        "jsmin": {
-            "hashes": [
-                "sha256:c0959a121ef94542e807a674142606f7e90214a2b3d1eb17300244bbb5cc2bfc"
-            ],
-            "version": "==3.0.1"
         },
         "outcome": {
             "hashes": [
