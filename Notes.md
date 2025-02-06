@@ -340,6 +340,33 @@ class Model_nameSerializer(serializers.ModelSerializer):
 ```
 - Then we edit the views.py file to render the data properly rather than shwoing static data. Which you can see the in "API/views.py".
 
+## 16. Social Authentication:
+(https://docs.allauth.org/en/latest/installation/quickstart.html)
+
+- Install: `pipenv install django-allauth`
+- Edits in *project_name/settings.py*:
+```python
+INSTALLED_APPS = [
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    #Rest according to usage (Google, Linkedin, Microsoft, Github...)
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+MIDDLEWARE = "allauth.account.middleware.AccountMiddleware",
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {}
+    'microsoft':{}} 
+```
+
 # Extras (New_Apps Config)
 ## 1. Debug Toolbar
 - Install: `pipenv install django-debug-toolbar`
