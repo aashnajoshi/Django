@@ -361,7 +361,7 @@ AUTHENTICATION_BACKENDS = [
 
 MIDDLEWARE = "allauth.account.middleware.AccountMiddleware",
 
-# Provider specific settings
+# Provider specific settings (https://docs.allauth.org/en/dev/socialaccount/providers/index.html)
 SOCIALACCOUNT_PROVIDERS = {
     'google': {}
     'microsoft':{}} 
