@@ -12,6 +12,7 @@ faker = "*"
 selenium = "*"
 python-dotenv = "*"
 djangorestframework = "*"
+django-allauth = "*"
 
 [dev-packages]
 

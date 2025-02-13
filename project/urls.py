@@ -13,6 +13,7 @@ urlpatterns = [
     path('app/', include('app.urls')),
     path('tasks/', include('tasks.urls')),
     path('api/', include('API.urls')),
+    path('accounts/', include('allauth.urls')),
 ] 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
