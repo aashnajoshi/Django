@@ -19,14 +19,14 @@
     <p class="text-white bg-dark center disabled p-2 mb-0 text-center">Links You Can Visit</p>
     <div class="list-group list-group-horizontal m-0 p-0">
         {% if task %}
-            <a href="/tasks/" class="list-group-item list-group-item-action {% block task_active %} {% endblock task_active %} bg-dark text-white disabled focus-none">Tasks</a>
+            <a href="/tasks/" class="list-group-item list-group-item-dark {% block task_active %} {% endblock task_active %} bg-dark text-white disabled focus-none">Tasks</a>
             <a href="/tasks/view" class="list-group-item list-group-item-action">Watch Stream!</a>
             <a href="/tasks/multiple" class="list-group-item list-group-item-action">Watch Multiple Streams!</a>
             <a href="/tasks/checkbox" class="list-group-item list-group-item-action">Checkbox</a>
             <a href="/tasks/text_utils" class="list-group-item list-group-item-action">Text Utils</a>
             <a href="/" class="list-group-item list-group-item-action">Home</a>
         {% else %}
-            <a href="/" class="list-group-item list-group-item-action {% block greet_active %} {% endblock greet_active %} bg-dark text-white disabled focus-none">Home</a>
+            <a href="/" class="list-group-item list-group-item-dark {% block greet_active %} {% endblock greet_active %} bg-dark text-white disabled focus-none">Home</a>
             <a href="/app/data" class="list-group-item list-group-item-action">User Data</a>
             <a href="/app/form" class="list-group-item list-group-item-action">Input Form Data</a>
             <a href="/app/info" class="list-group-item list-group-item-action">Form Data</a>

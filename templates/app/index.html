@@ -66,9 +66,9 @@
         </form>
     </div>
     {% else %}
-    <h2>No data yet!</h2>
-    <p>Want to add data?</p>
-    <a href="{% url 'form' %}" class="btn btn-primary">Go to Form</a>
+        <h2>No data yet!</h2>
+        <p>Want to add data?</p>
+        <a href="{% url 'form' %}" class="btn btn-outline-dark">Go to Form</a>
     {% endif %}
 </div>
 {% endblock content %}
