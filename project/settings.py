@@ -39,16 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
 
     'rest_framework',
-
     "debug_toolbar",
-    "tinymce",
 
+    "API",
     "app",
     "tasks",
 ]
 
 MIDDLEWARE = [
-    "allauth.account.middleware.AccountMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -56,7 +54,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
@@ -146,7 +143,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
-
+# for other social media providers: (https://docs.allauth.org/en/dev/socialaccount/providers/index.html)
 SOCIALACCOUNT_PROVIDERS = {
     'github': {
         'SCOPE': [
@@ -162,4 +159,5 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 SOCIALACCOUNT_LOGIN_ON_GET = True

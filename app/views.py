@@ -8,17 +8,7 @@ from .forms import FormEntry
 
 # Create your views here. (request-handler: request -> reponse)
 def health_check(request):
-    return HttpResponse('''
-    <center><h2>Congrats! Django is working...</h2></center>
-    <p> The links you can visit are: 
-    <ul style ="none">
-        <li><a href="/app/greet">Greet</a></li>
-        <li><a href="/app/data">User Data</a></li>
-        <li><a href="/app/form">Input Form Data</a></li>
-        <li><a href="/app/info">Form Data</a></li>
-        <li><a href="/app/send_email">Send Email</a></li>
-        <li><a href="/tasks">Tasks</a></li>
-    </ul>''')
+    return render(request, 'base.html', context={'title': "Home"})
 
 def greet(request):
     return render(request, 'app/index.html', context={'name': 'Qwerty', 'title': "Greet"})

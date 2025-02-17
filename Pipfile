@@ -4,9 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "2.1.4"
+django = "3.1.1"
 django-debug-toolbar = "*"
-django-tinymce = "*"
 pillow = "*"
 faker = "*"
 selenium = "*"

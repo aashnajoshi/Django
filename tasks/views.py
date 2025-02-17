@@ -3,15 +3,7 @@ from django.http import HttpResponse
 
 # Function to handle health check
 def health_check(request):
-    return HttpResponse('''
-    <center><h2>Congrats! Django is working</h2></center>
-    <p> The links you can visit are: 
-    <ul style ="none">
-        <li><a href="/tasks/view">Watch Stream!</a></li>
-        <li><a href="/tasks/multiple">Watch Multiple Streams!</a></li>
-        <li><a href="/tasks/checkbox">Checkbox</a></li>
-        <li><a href="/tasks/text_utils">Text Utils</a></li>
-    </ul>''')
+    return render(request, 'base.html', context={'title': "Tasks", 'task': 'task'})
 
 # Single Stream View
 def stream_view(request):
@@ -19,7 +11,7 @@ def stream_view(request):
         'url': 'http://195.196.36.242/mjpg/video.mjpg', 
         'location': 'Norrbotten, Sweden'
     }
-    return render(request, 'tasks/index.html', context={'stream': stream, 'title': "Live Stream"})
+    return render(request, 'tasks/index.html', context={'stream': stream, 'title': "Live Stream", 'task': 'task'})
 
 # Multiple Streams View
 def multiple_stream_view(request):
@@ -29,11 +21,11 @@ def multiple_stream_view(request):
         {'url': 'http://213.236.250.78/mjpg/video.mjpg', 'location': 'Oslo, Norway'},
         {'url': 'http://31.12.82.136/mjpg/video.mjpg', 'location': 'Umea, Sweden'}
     ]
-    return render(request, 'tasks/index.html', context={'streams': streams, 'title': "Live Streams"})
+    return render(request, 'tasks/index.html', context={'streams': streams, 'title': "Live Streams", 'task': 'task'})
 
 # View for Checkbox
 def checkbox_view(request):
-     return render(request, 'tasks/index.html', {'title': "Checkbox", 'checkbox': 'checkbox'})
+     return render(request, 'tasks/index.html', {'title': "Checkbox", 'checkbox': 'checkbox', 'task': 'task'})
 
 # View for Text Utils
 def text_utils_view(request):
@@ -47,7 +39,7 @@ def text_utils_view(request):
         if text_util:
             result = text_utilities(text, text_util)
     
-    return render(request, "tasks/index.html", context={'title': "Text Utilities", "text": text, "result": result, "text_utils": 'text_utils'})
+    return render(request, "tasks/index.html", context={'title': "Text Utilities", "text": text, "result": result, "text_utils": 'text_utils', 'task': 'task'})
 
 # Logic for Text Utils View
 def text_utilities(text, text_util):
