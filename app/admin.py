@@ -4,7 +4,6 @@ from django.db import models
 from .models import *
 
 class FormAdmin(admin.ModelAdmin):
-    formfield_overrides = {
-        models.TextField: {'widget': TinyMCE()},}
+    formfield_overrides = {models.TextField: {'widget': TinyMCE()},}
 
 admin.site.register(Form, FormAdmin)

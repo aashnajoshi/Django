@@ -60,4 +60,4 @@ def send_email(request):
         return redirect('send_email')
 
     else:
-        return render(request, 'app/index.html', context={'mail': 'mail', 'settings': settings, 'title': "Send Email"})
+        return render(request, 'app/index.html', context={'mail': True, 'settings': settings, 'title': "Send Email"})
