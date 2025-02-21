@@ -1,8 +1,8 @@
 from django.urls import path
-from . import views
+from .views import *
 
 #URL Configurations:
 urlpatterns = [
-    path('', views.getData, name='getData'),
-    path('post/', views.postData, name='postData'),
+    path('', getData, name='getData'),
+    path('post/', postData, name='postData'),
 ]
