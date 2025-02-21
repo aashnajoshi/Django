@@ -9,6 +9,11 @@
 ```
 - This creates a virtual environment with the name of Base Directory followed by some random characters inside: *C:\Users\{user_name}\.virtualenvs*
 
+- In case you have multiple versions of python installed and want to create env using a specific version, you can do so by using:
+```bash
+pipenv --python "path\to\Python\Python3xx\python.exe"
+``` 
+
 ### Installing Packages
 ```bash
     pipenv install {package_name}
