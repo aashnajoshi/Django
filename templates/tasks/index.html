@@ -1,89 +1,97 @@
 {% extends 'base.html' %}
 {%block task_active%} active {%endblock task_active%}
 {% block content %}
-<div class="container">
-    <div class="row">
-        {% if stream %}
-        <!-- Single Stream Display-->
-        <div class="col-md-12">
-            <div class="card mb-4">
-                <img src="{{ stream.url }}" alt="Stream" class="card-img-top" style="height:35rem; width:auto;">
-                <div class="card-body">
-                    <h5 class="card-title">{{ stream.location }}</h5>
-                </div>
+<div class="container mb-4">
+    {% if stream %}
+    <!-- Single Stream Display-->
+    <div class="col-md-12">
+        <div class="card">
+            <img src="{{ stream.url }}" alt="Stream" class="card-img-top" style="height:35rem; width:auto;">
+            <div class="card-body">
+                <h5 class="card-title">{{ stream.location }}</h5>
             </div>
         </div>
-        {% elif streams %}
-        <!-- Multiple Streams Display-->
-        {% for s in streams %}
-        <div class="col-md-6">
-            <div class="card mb-4">
-                <img src="{{ s.url }}" alt="Stream" class="card-img-top" style="height:20rem; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title">{{ s.location }}</h5>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-        {% elif checkbox %}
-        <!-- Checkboxes -->
-        <form>
-            <div class="mb-3">
-                <button type="button" class="btn btn-primary" onclick="toggleSelectDeselect()">Select/Deselect All</button>
-                <button type="button" class="btn btn-secondary" onclick="selectAllExceptOne()">Select All Except One</button>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="checkboxA" />
-                <label class="form-check-label" for="checkboxA">Checkbox A</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="checkboxB" />
-                <label class="form-check-label" for="checkboxB">Checkbox B</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="checkboxC" />
-                <label class="form-check-label" for="checkboxC">Checkbox C</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="checkboxD" />
-                <label class="form-check-label" for="checkboxD">Checkbox D</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="checkboxE" />
-                <label class="form-check-label" for="checkboxE">Checkbox E</label>
-            </div>
-        </form>
-        {% elif result %}
-        <div>
-            <h4>Input Text:</h4>
-            <pre>{{ text }}</pre>
-            <h4>Output Result:</h4>
-            <pre>{{ result|safe }}</pre>
-        </div>
-        {% elif text_utils %}
-        <!-- Text Utility Form -->
-        <form action="/tasks/text_utils/" method="post">
-            {% csrf_token %}
-            <div class="mb-3">
-                <textarea name="text" cols="150" rows="5" placeholder="Enter your text here...">{{ text }}</textarea><br>
-            </div>
-            <div class="mb-3">
-                <input class="form-check-input" type="radio" name="text_util" value="punc"> Remove Punctuations<br>
-                <input class="form-check-input" type="radio" name="text_util" value="uppercase"> Upper Case<br>
-                <input class="form-check-input" type="radio" name="text_util" value="capitalize"> Capitalize First Letter<br>
-                <input class="form-check-input" type="radio" name="text_util" value="remove_spaces"> Remove Extra Spaces<br>
-                <input class="form-check-input" type="radio" name="text_util" value="char_count"> Character Counter<br>
-                <input class="form-check-input" type="radio" name="text_util" value="bold"> Bold Text<br>
-                <input class="form-check-input" type="radio" name="text_util" value="italic"> Italic Text<br>
-                <input class="form-check-input" type="radio" name="text_util" value="underline"> Underline Text<br>
-                <input class="form-check-input" type="radio" name="text_util" value="reverse"> Reverse Text<br>
-                </div>
-            <button type="submit" class="btn btn-primary">Analyze Text</button>
-        </form>
-        {% else %}
-            <p>No content available.</p>
-        {% endif %}
     </div>
+    {% elif streams %}
+    <!-- Multiple Streams Display -->
+    <div class="container">
+        <div class="row">
+            {% for s in streams %}
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <img src="{{ s.url }}" alt="Stream" class="card-img-top" style="height:20rem; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ s.location }}</h5>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% elif checkbox %}
+    <!-- Checkboxes -->
+    <form>
+        <div class="mb-3">
+            <button type="button" class="btn btn-outline-dark" onclick="toggleSelectDeselect()">Select/Deselect All</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="selectAllExceptOne()">Select All Except One</button>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="checkboxA" />
+            <label class="form-check-label" for="checkboxA">Checkbox A</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="checkboxB" />
+            <label class="form-check-label" for="checkboxB">Checkbox B</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="checkboxC" />
+            <label class="form-check-label" for="checkboxC">Checkbox C</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="checkboxD" />
+            <label class="form-check-label" for="checkboxD">Checkbox D</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="checkboxE" />
+            <label class="form-check-label" for="checkboxE">Checkbox E</label>
+        </div>
+    </form>
+    {% elif result %}
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header"><h4>Input Text</h4></div>
+            <div class="card-body"><pre>{{ text }}</pre></div>
+        </div>
+        <div class="alert alert-secondary mt-4">
+            <strong>Operation Performed:</strong> {{ task }}
+        </div>
+        <div class="card mt-3">
+            <div class="card-header"><h4>Result</h4></div>
+            <div class="card-body"><pre>{{ result|safe }}</pre></div>
+        </div>
+    {% elif text_utils %}
+    <!-- Text Utility Form -->
+    <form action="/tasks/text_utils/" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <textarea name="text" cols="150" rows="5" placeholder="Enter your text here...">{{ text }}</textarea><br>
+        </div>
+        <div class="mb-3">
+            <input class="form-check-input" type="radio" name="text_util" value="punc"> Remove Punctuations<br>
+            <input class="form-check-input" type="radio" name="text_util" value="uppercase"> Upper Case<br>
+            <input class="form-check-input" type="radio" name="text_util" value="capitalize"> Capitalize First Letter<br>
+            <input class="form-check-input" type="radio" name="text_util" value="remove_spaces"> Remove Extra Spaces<br>
+            <input class="form-check-input" type="radio" name="text_util" value="char_count"> Character Counter<br>
+            <input class="form-check-input" type="radio" name="text_util" value="bold"> Bold Text<br>
+            <input class="form-check-input" type="radio" name="text_util" value="italic"> Italic Text<br>
+            <input class="form-check-input" type="radio" name="text_util" value="underline"> Underline Text<br>
+            <input class="form-check-input" type="radio" name="text_util" value="reverse"> Reverse Text<br>
+            </div>
+        <button type="submit" class="btn btn-outline-dark">Analyze Text</button>
+    </form>
+    {% else %}
+        <p>No content available.</p>
+    {% endif %}
 </div>
 <script>
     // Function to toggle select/deselect all checkboxes

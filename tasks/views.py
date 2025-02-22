@@ -26,34 +26,35 @@ def checkbox_view(request):
 
 # View for Text Utils
 def text_utils_view(request):
-    text = ""
-    result = ""
-    if request.method == "POST":
-        text = request.POST.get("text", "")
-        text_util = request.POST.get("text_util", "")
-        if text_util:
-            result = text_utilities(text, text_util)
-    return render(request, "tasks/index.html", context={'title': "Text Utilities", "text": text, "result": result, "text_utils": True, 'task': True})
+    text = request.POST.get("text", "")
+    text_util = request.POST.get("text_util", "")
+    result, task = ("", "")
+    if request.method == "POST" and text_util:
+        result, task = text_utilities(text, text_util)
+    return render(request, "tasks/index.html", context={'title': "Text Utilities", 'text': text, 'result': result, 'task': task, 'text_utils': True})
 
 # Logic for Text Utils View
 def text_utilities(text, text_util):
-    if text_util == "punc": # Remove Punctuation
-        return ''.join([char for char in text if char not in ('''!()-[]{};:'"\,<>./?@#$%^&*_~''')])
-    elif text_util == "uppercase": # Upper Case Text
-        return text.upper()
-    elif text_util == "capitalize": # Capitalize First Letter
-        return text.capitalize()
-    elif text_util == "remove_spaces": # Remove Extra Spaces
-        return ' '.join(text.split()) 
-    elif text_util == "char_count": # Count Characters
-        return f"Character Count: {len(text)}"
-    elif text_util == "bold": # Bold Text
-        return f"<strong>{text}</strong>"
-    elif text_util == "italic": # Italic Text
-        return f"<em>{text}</em>"
-    elif text_util == "underline": # Underline Text
-        return f"<u>{text}</u>"
-    elif text_util == "reverse": # Reverse Text
-        return text[::-1]
-    else: 
-        return text
+    task_names = {
+        "punc": "Removed all punctuation from the text",
+        "uppercase": "Converted all text to uppercase",
+        "capitalize": "Capitalized the first letter of the text",
+        "remove_spaces": "Removed extra spaces from the text",
+        "char_count": "Counted the total number of characters",
+        "bold": "Converted the text to bold",
+        "italic": "Converted the text to italic",
+        "underline": "Underlined the text",
+        "reverse": "Reversed the order of the text"
+        }
+    operations = {
+        "punc": lambda text: (''.join(char for char in text if char not in ('''!()-[]{};:'"\,<>./?@#$%^&*_~''')), task_names["punc"]),
+        "uppercase": lambda text: (text.upper(), task_names["uppercase"]),
+        "capitalize": lambda text: (text.capitalize(), task_names["capitalize"]),
+        "remove_spaces": lambda text: (' '.join(text.split()), task_names["remove_spaces"]),
+        "char_count": lambda text: (f"Character Count: {len(text)}", task_names["char_count"]),
+        "bold": lambda text: (f"<strong>{text}</strong>", task_names["bold"]),
+        "italic": lambda text: (f"<em>{text}</em>", task_names["italic"]),
+        "underline": lambda text: (f"<u>{text}</u>", task_names["underline"]),
+        "reverse": lambda text: (text[::-1], task_names["reverse"]),
+    }
+    return operations.get(text_util, lambda text: (text, ""))(text)

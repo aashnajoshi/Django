@@ -30,6 +30,8 @@ INSTALLED_APPS = [
 
     'allauth.socialaccount.providers.github',
 
+    "unfold",
+    "unfold.contrib.forms",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     "debug_toolbar",
+    # "tinymce",
 
     "API",
     "app",

@@ -9,7 +9,7 @@
 </head>
 <body>
     <p class="text-white bg-dark center disabled p-2 mb-0 text-center">Links You Can Visit</p>
-    <div class="list-group list-group-horizontal m-0 p-0">
+    <div class="list-group list-group-horizontal m-0 p-0 clearfix">
         {% if task %}
             <a href="/tasks/" class="list-group-item list-group-item-dark {% block task_active %} {% endblock task_active %} bg-dark text-white disabled focus-none">Tasks</a>
             <a href="/tasks/view" class="list-group-item list-group-item-action">Watch Stream!</a>

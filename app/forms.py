@@ -1,7 +1,7 @@
 from django import forms
 from .models import Form
 from django.utils import timezone
-from tinymce.widgets import TinyMCE
+# from tinymce.widgets import TinyMCE
 
 class FormEntry(forms.ModelForm):
     class Meta:
