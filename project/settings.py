@@ -170,6 +170,7 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 UNFOLD = {
     "SITE_URL": "http://127.0.0.1:8000/",
     "SITE_TITLE": "Django",
+    "SITE_HEADER": "Django Admin Panel",
     "SIDEBAR": {
         "show_search": True,
         "show_all_applications": True,
