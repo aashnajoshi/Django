@@ -169,6 +169,7 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 # Custom Backend (Unfold)
 UNFOLD = {
     "SITE_URL": "http://127.0.0.1:8000/",
+    "SITE_TITLE": "Django",
     "SIDEBAR": {
         "show_search": True,
         "show_all_applications": True,
