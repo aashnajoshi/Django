@@ -1,9 +1,9 @@
 from django.contrib import admin
-from tinymce.widgets import TinyMCE
-from django.db import models
+from unfold.admin import ModelAdmin
+# from tinymce.widgets import TinyMCE
+from unfold.contrib.forms.widgets import WysiwygWidget
 from .models import *
 
-class FormAdmin(admin.ModelAdmin):
-    formfield_overrides = {models.TextField: {'widget': TinyMCE()},}
-
-admin.site.register(Form, FormAdmin)
+@admin.register(Form)
+class CustomAdminClass(ModelAdmin):
+    formfield_overrides = {models.TextField: {"widget": WysiwygWidget}}
