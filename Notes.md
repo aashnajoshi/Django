@@ -31,13 +31,19 @@ pipenv --python "path\to\Python\Python3xx\python.exe"
 ## 2. Packages installed and their usage:
 - `pipenv`: A tool for managing virtual environments.
 - `django`: A high-level Python web framework for rapid development.
+- `djangorestframework`: A powerful and flexible toolkit for building Web APIs in Django.
+- `django-all-auth`: An authentication system for Django, providing login, registration, and account management.
 
 - `django-debug-toolbar`: A debugging tool for Django applications.
 - `tinymce`: A rich text editor for web applications.
+- `unfold`: A lightweight, simple Python library for building and transforming functional data structures.
+- `django-import-export`: A Django app for importing and exporting data in various formats (e.g., CSV, XLS).
 
+- `python-dotenv`: A library for reading and loading environment variables from a .env file.
 - `pillow`: An image processing library for Python.
 - `faker`: A tool for generating fake data for testing purposes.
 - `uuid`: A tool for generating universally unique identifiers (UUIDs).
+- `isort`: A Python utility for sorting and organizing imports in a consistent way.
 - `razorpay`: A tool for secure Payment Gateway integration.
 
 ## 3. Creating a New Django Project

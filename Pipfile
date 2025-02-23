@@ -8,11 +8,11 @@ django = "3.2.10"
 django-debug-toolbar = "*"
 pillow = "*"
 faker = "*"
-selenium = "*"
 python-dotenv = "*"
 djangorestframework = "*"
 django-allauth = "*"
 django-unfold = "*"
+django-import-export = "*"
 
 [dev-packages]
 

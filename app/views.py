@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.conf import settings
 from django.contrib import messages
 from django.core.mail import EmailMessage
-from django.conf import settings
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from .forms import FormEntry
 from .models import Form
-from .forms import FormEntry 
 
 # Create your views here. (request-handler: request -> reponse)
 def health_check(request):
