@@ -16,7 +16,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'v)c%m&*%8t1@2)rb_c$4a3&$+^r&i518&$a=w1ltwb8lud$!l^'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -168,7 +168,7 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 
 # Custom Backend (Unfold)
 UNFOLD = {
-    "SITE_URL": "http://google.com",
+    "SITE_URL": "http://127.0.0.1:8000/",
     "SIDEBAR": {
         "show_search": True,
         "show_all_applications": True,
