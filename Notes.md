@@ -77,8 +77,17 @@ pipenv --python "path\to\Python\Python3xx\python.exe"
 ### Registering Models in Admin
 - Edits in *app_name/admin.py*:
 ```python
+    from django.contrib import admin
     from .models import ModelName
     admin.site.register(ModelName)
+```
+OR
+```python
+    from django.contrib.admin import register
+    from .models import ModelName
+    @register(ModelName)
+    class ModelNameAdmin(models.Model):
+        pass
 ```
 
 ### Steps to Make Migrations (in Terminal)
