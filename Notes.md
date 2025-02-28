@@ -432,3 +432,20 @@ TINYMCE_DEFAULT_CONFIG = {
     'statusbar': True,
     }
 ```
+## 3. Unfold
+- Install: `pipenv install django-unfold`
+- Edits in *project_name/settings.py*:
+```python
+INSTALLED_APPS: "unfold", "unfold.contrib.forms",
+# Custom Backend (Unfold)
+UNFOLD = {
+    "SITE_URL": "http://127.0.0.1:8000/",
+    "SITE_TITLE": "Django",
+    "SITE_HEADER": "Django Admin Panel",
+    "SIDEBAR": {
+        "show_search": True,
+        "show_all_applications": True,
+        "navigation": []
+    },
+}
+```
