@@ -1,6 +1,7 @@
 from django.contrib.admin import register
 from unfold.admin import ModelAdmin
 # from tinymce.widgets import TinyMCE
+from django.db import models
 from unfold.contrib.forms.widgets import WysiwygWidget
 from unfold.contrib.import_export.forms import (ExportForm, ImportForm, SelectableFieldsExportForm)
 from .models import *
