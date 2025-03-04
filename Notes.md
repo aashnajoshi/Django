@@ -452,9 +452,10 @@ UNFOLD = {
 - Edits in *app_name/admin.py*:
 ```python
 from django.contrib.admin import register
+from unfold.contrib.forms.widgets import WysiwygWidget #for custom widget say textarea
 from unfold.admin import ModelAdmin
 
 @register(Model_Name)
 class CustomAdminClass(ModelAdmin):
-    pass
+    formfield_overrides = {models.TextField: {"widget": WysiwygWidget}}
 ```
