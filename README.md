@@ -7,7 +7,6 @@ This is a sample project created using the Django web framework. It demonstrates
 - Example templates for rendering HTML pages.
 
 ## Usage
-
 ### If Pipenv is already installed skip this step:
 ```bash
 pip install pipenv
