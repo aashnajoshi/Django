@@ -1,5 +1,4 @@
-# Django Notes (Beginner's Perspective)
-
+# Django Notes (Beginner Friendly Version)
 ## 1. Setting Up the Development Environment
 ### Creating a Virtual Environment with Pipenv:
 - Install: `pip install pipenv`
