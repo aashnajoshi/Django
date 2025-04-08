@@ -124,13 +124,13 @@ OR
     from app.models import *
     ModelName.objects.create(field = "entry", field2 = entry2...)
 ```
-            OR
+OR
 ```python
     from app.models import *
     data = ModelName(field = "entry", field2 = entry2....)
     data.save()
 ```
-            OR
+OR
 ```python
     from app.models import *
     data_dict = {"field1": "entry", "field2": "entry2"} #For dict or JSON data
@@ -160,7 +160,7 @@ OR
     data.field1 = "new_entry"
     data.save()
 ```
-            OR
+OR
 ```python
     from app.models import *
     ModelName.objects.filter(id = 2).update(field1 = "new_entry") 
