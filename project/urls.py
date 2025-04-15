@@ -11,7 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('debug/', include(debug_toolbar.urls)),
     path('accounts/', include('allauth.urls')),
-    path('app/', include('app.urls'), name='app'),
-    path('tasks/', include('tasks.urls'), name='tasks'),
-    path('api/', include('API.urls')), name='api'),
+    path('app/', include('app.urls')),
+    path('tasks/', include('tasks.urls')),
+    path('api/', include('API.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -11,19 +11,19 @@
     <body>
         <div class="list-group list-group-horizontal m-0 p-0 clearfix">
             {% if task %}
-            <a href="{% url 'health_check' %}" class="list-group-item list-group-item-dark {% block task_active %} {% endblock task_active %} bg-dark text-white disabled focus-none">Tasks</a>
-            <a href="{% url 'stream_view' %}" class="list-group-item list-group-item-action">Watch Stream!</a>
-            <a href="{% url 'multiple_stream_view' %}" class="list-group-item list-group-item-action">Watch Multiple Streams!</a>
-            <a href="{% url 'checkbox_view' %}" class="list-group-item list-group-item-action">Checkbox</a>
-            <a href="{% url 'text_utils_view' %}" class="list-group-item list-group-item-action">Text Utils</a>
-            <a href="{% url 'health_check' %}" class="list-group-item list-group-item-action">Home</a>
+            <a href="{% url 'tasks:home' %}" class="list-group-item list-group-item-dark {% block task_active %} {% endblock task_active %} bg-dark text-white disabled focus-none">Tasks</a>
+            <a href="{% url 'tasks:stream' %}" class="list-group-item list-group-item-action">Watch Stream!</a>
+            <a href="{% url 'tasks:streams' %}" class="list-group-item list-group-item-action">Watch Multiple Streams!</a>
+            <a href="{% url 'tasks:checkbox' %}" class="list-group-item list-group-item-action">Checkbox</a>
+            <a href="{% url 'tasks:text_utils' %}" class="list-group-item list-group-item-action">Text Utils</a>
+            <a href="{% url 'app:home' %}" class="list-group-item list-group-item-action">Home</a>
             {% else %}
-            <a href="{% url 'health_check' %}" class="list-group-item list-group-item-dark {% block greet_active %} {% endblock greet_active %} bg-dark text-white disabled focus-none">Home</a>
-            <a href="{% url 'data' %}" class="list-group-item list-group-item-action">User Data</a>
-            <a href="{% url 'form' %}" class="list-group-item list-group-item-action">Input Form Data</a>
-            <a href="{% url 'info' %}" class="list-group-item list-group-item-action">Form Data</a>
-            <a href="{% url 'send_email' %}" class="list-group-item list-group-item-action">Send Email</a>
-            <a href="{% url 'health_check' %}" class="list-group-item list-group-item-action">Tasks</a>
+            <a href="{% url 'app:home' %}" class="list-group-item list-group-item-dark {% block greet_active %} {% endblock greet_active %} bg-dark text-white disabled focus-none">Home</a>
+            <a href="{% url 'app:data' %}" class="list-group-item list-group-item-action">User Data</a>
+            <a href="{% url 'app:form' %}" class="list-group-item list-group-item-action">Input Form Data</a>
+            <a href="{% url 'app:info' %}" class="list-group-item list-group-item-action">Form Data</a>
+            <a href="{% url 'app:send_email' %}" class="list-group-item list-group-item-action">Send Email</a>
+            <a href="{% url 'tasks:home' %}" class="list-group-item list-group-item-action">Tasks</a>
             {% endif %}
         </div>
         {% for message in messages %}
