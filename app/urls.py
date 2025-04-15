@@ -3,7 +3,7 @@ from .views import *
 
 #URL Configurations:
 urlpatterns = [
-    path('', health_check),
+    path('', health_check, name='health_check'),
     path('greet/', greet, name='greet'),
     path('data/', user_data, name='data'),
     path('form/', input_form_data, name='form'),
