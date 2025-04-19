@@ -33,6 +33,12 @@
         </div>
         {% endfor %}
         <h1 class="text-center">{{ title }}</h1>
+        {% if home %}
+        <div class="container mt-3">
+            <h4 class="text-center">Welcome to the homepage of "{{title}}"</h4>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa quod non odit repudiandae veniam, illum velit deleniti tempora et. Voluptatem soluta ex aliquid tempore sed dicta tempora nulla vel vero exercitationem, cumque porro eum, ratione pariatur iure totam reprehenderit aspernatur fugiat eos nostrum nisi? Ullam sunt recusandae ipsa incidunt odit ut ducimus necessitatibus minima, repellat eos omnis aspernatur iusto vitae temporibus, vero asperiores molestiae accusamus nemo reprehenderit unde esse soluta quibusdam quia labore? Pariatur alias sunt ipsa et veritatis, incidunt, asperiores esse amet, delectus totam mollitia? Nisi fugiat soluta debitis suscipit quod dolore at tempora, dicta optio quasi, placeat veritatis asperiores temporibus nostrum libero, illum architecto! Consequatur, voluptates nihil. Quam nesciunt reprehenderit, eos cupiditate eligendi sapiente architecto, dolorem quas, vitae ut natus unde id consequatur molestias totam sequi molestiae dignissimos quo? Laudantium sint et dolores delectus enim, iure quo assumenda molestiae quam culpa aliquam non consequuntur, tenetur temporibus sapiente harum?</p>
+        </div>
+        {% endif %}
         {% block content %} {% endblock content %}
         <script src="{% static 'unfold/js/unfold.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

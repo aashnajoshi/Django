@@ -221,6 +221,65 @@ python manage.py changepassword username
 and create a new app save this password without spaces, suppose your password shows 'weqc ljsn juef hick' then your password is: 'weqcljsnjuefhick'
 
 - Edits in *app_name/views.py*:
+- For this we have 3 options:
+1. Using: `send_mail` fn of django, it is used for mails without attachments
+```python
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib import messages
+from django.shortcuts import render, redirect
+
+def send_simple_email(request):
+    if request.method == 'POST':
+        subject = request.POST.get('subject', '').strip()
+        message = request.POST.get('message', '').strip()
+        from_email = settings.EMAIL_HOST_USER
+        recipients_raw = request.POST.get('recipients', '').strip()
+
+        # Split and clean the recipient emails
+        recipient_list = [email.strip() for email in recipients_raw.split(',') if email.strip()]
+        if not subject or not message or not recipient_list:
+            messages.error(request, "All fields are required.")
+            return redirect('send_email') #URL Name where you want to redirect
+        try:
+            send_mail(subject, message, from_email, recipient_list)
+            messages.success(request, "Email sent successfully.")
+        except Exception as e:
+            messages.error(request, f"Error sending email: {e}")
+        return redirect('send_email') #URL Name where you want to redirect
+    return render(request, 'index.html', {'mail': 'mail', 'title': 'Send Email with Attachment'})
+```
+
+2. Using: `EmailMessage` fn of django, it supports both with/without attachments
+```python
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.contrib import messages
+from django.shortcuts import render, redirect
+
+def send_email_message(request):
+    if request.method == 'POST':
+        subject = request.POST.get('subject', '').strip()
+        message = request.POST.get('message', '').strip()
+        recipients_raw = request.POST.get('recipients', '').strip()
+        file = request.FILES.get('file_path')  # Optional
+        recipient_list = [email.strip() for email in recipients_raw.split(',') if email.strip()]
+        from_email = settings.EMAIL_HOST_USER
+        if not subject or not message or not recipient_list:
+            messages.error(request, "Subject, message, and recipients are required.")
+            return redirect('send_email')
+        try:
+            email = EmailMessage(subject, message, from_email, recipient_list)
+            if file:
+                email.attach(file.name, file.read(), file.content_type)
+            messages.success("Email sent successfully")
+        except Exception as e:
+            messages.error(request, f"Error sending email: {e}")
+        return redirect('send_email')
+
+    return render(request, 'index.html', {'mail': 'mail', 'title': 'Send Email (Optional Attachment)'})
+```
+3. Writing a Custom Function, rather than using inbuilt functions:
 ```python
     from django.contrib import messages
     from django.core.mail import EmailMessage

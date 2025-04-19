@@ -71,7 +71,7 @@
         </div>
     {% elif text_utils %}
     <!-- Text Utility Form -->
-    <form action="{% url 'text_utils' %}" method="post">
+    <form action="{% url 'tasks:text_utils' %}" method="post">
         {% csrf_token %}
         <div class="mb-3">
             <textarea name="text" cols="150" rows="5" placeholder="Enter your text here...">{{ text }}</textarea><br>

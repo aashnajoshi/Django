@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 # Function to handle health check
 def health_check(request):
-    return render(request, 'base.html', context={'title': "Tasks", 'task': True})
+    return render(request, 'base.html', context={'title': "Tasks", 'task': True, 'home': True})
 
 # Single Stream View
 def stream_view(request):
@@ -31,7 +31,7 @@ def text_utils_view(request):
     result, task = ("", "")
     if request.method == "POST" and text_util:
         result, task = text_utilities(text, text_util)
-    return render(request, "tasks/index.html", context={'title': "Text Utilities", 'text': text, 'result': result, 'task': task, 'text_utils': True})
+    return render(request, "tasks/index.html", context={'title': "Text Utilities", 'text': text, 'result': result, 'task': True, 'text_utils': True})
 
 # Logic for Text Utils View
 def text_utilities(text, text_util):
